@@ -1,0 +1,82 @@
+
+//{numbers}
+// value.toString
+// value.tofixed(n) --> select how many number after sign
+// parseInt(value)
+// parseFloat(value)
+//isinteger(value)
+//isNAN(value)
+
+//{math}
+//math.round(value)
+//math.ceil(value)
+//math.floor(value)
+//math.max(a,b,c,d)
+//math.min(a,b,c,d)
+//math.pow(2,4);
+// Math.random()*9 --> random number from 0 to 8
+//math.trunc(value) --> ignore fractions part
+
+// {string method}
+//value[10] --> if not found return undefined
+//value.charAt(10) --> if not found return "" (empty string)
+//value.length
+//value.trim() --> for remove  pre and pos white spaces from string
+//value.toUpperCase()
+//value.toLowerCase()
+//value.indexOf("string") ---> if not found return -1
+//value.indexOf("string", N) ---> Start search from index N
+//value.lastIndexOf("string") --> start search from end
+//value.search("string")
+//value.slice(start)
+//value.slice(start,stop)
+//value.substring(start,stop) like slice with two diff [ if start > stop  exchange it automatic ] [ if input index is negative --> replace it to zero ]
+//value.subStr(startIndex,#char) write number of char u want instead of stop index
+//value.repeat(n)
+//value.inClude("string") ->> search for string in value and return true or false ?
+//value.startsWith("string") --> is value start with string [ return true or false] ?
+//value.startsWith("string",n) --> is value from index n start with string ?
+//value.endsWith("string") --> is value end with string ?
+//value.endsWith("string",#length) --> is first #length char at value end with string ?
+//value.split() --> convert string to array
+//value.split("|") split element every |
+//value.split("|",n) add number of the split
+
+// 5 > 4 ? console.log("yes") : console.log("no");
+
+// console.log(`my name is ${theName||"unknown"}`) --> if the variable = null or undefined or [false] replace it by "unknown"
+// console.log(`my name is ${theName??"unknown"}`) --> if the variable = null or undefined replace it by "unknown"
+
+// switch (x) {
+//     case 2:
+//     case 3:
+//         console.log("multi cases")
+//         break;
+// }
+
+//{array}//
+//Array.isArray(myArray); ---> true or false
+//myArray.length
+//if we add element at extra array index , js will add the element at this index , before it will be empty from the last main array element
+//myArray[myArray.lenght]=value; --> add value to end of the array  [...,value];
+//myArray[myArray.lenght-1] -->>  get the last array element
+//myArray.unshift(a,b,c) --> add elements to the first of the array
+//myArray.push(a,b,c) -->  add elements to the end of the array
+//let firstElement= myArray.shift() --> remove and return first element at the array
+//let lastElement= myArray.pop() --> remove and return last element at the array
+//myArray.indexOf(value,startIndexForSearch[op]) --> return the index of the value at the array ,if not found return -1
+//myArray.lastIndexOf(value,startIndexForSearch[op]) -->(start search from end) return the index of the value at the array ,if not found return -1
+//myArray.includes(value,startIndexForSearch[op]) --> search and return true or false
+//myArray.sort(); --> for sort array element alphabetic 1 2 20 30 4 50 9
+//myArray.reverse(); --> reverse array element
+//myArray.slice(start,stop[op]) --> take slice of elements from array ,return as new array
+//myArray.splice(start,#delete[0 for no delete],newElement) -->  we can select elementCount from start index to delete from the array ,also u can add newElement at start [index u want]
+// Ex at Splice //
+// let theAge = [1, 2, 3, 4, 5, 6, 7, 8];
+// console.log(theAge.splice(3, 1,)) --> only delete 4 from array ,line return [4]
+// console.log(theAge) -->[1, 2, 3, 5, 6, 7, 8]
+// console.log(theAge.splice(1, 0, "A"));  --> add char A to Array at index 1 ,line return [] (no element deleted)
+// console.log(theAge) --> [1, 'A', 2, 3, 4, 5, 6, 7, 8]
+// End Ex /
+//let allArrays= arrayOne.concat(arrayTwo,arrayThree,[1,2,3],"A",...); --> merge Arrays to one array
+//myArray.join(separateSign); -->  return array as a String 
