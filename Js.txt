@@ -80,3 +80,73 @@
 // End Ex /
 //let allArrays= arrayOne.concat(arrayTwo,arrayThree,[1,2,3],"A",...); --> merge Arrays to one array
 //myArray.join(separateSign); -->  return array as a String 
+
+ 
+// for (const property in object) {
+//     object[property];
+// }
+
+// for (const property of object) {
+//     property;
+// }
+
+// for(const i = 0 ;i<Array.length; i++){
+//     if(condition){
+//         break;--> loop exit
+//     }
+// }
+
+// for(const i = 0 ;i<Array.length; i++){
+//     if(condition){
+//         continue; --> loop skip
+//     }
+// }
+
+//to make break or continue to main loop by nested loop we use mainloop:&nestedloop:
+// mainLoop:for(const i = 0 ;i<Array.length; i++){
+// nestedLoop:for(const i = 0 ;i<Array.length; i++){
+//     if(condition){
+//         break mainLoop;
+//     }
+// }}
+
+//  speacial For form
+// let i =0;
+// for(;;){
+//     code
+//     i++;
+//     if(i===Array.length)break;
+//  }
+
+//function test (){
+// code
+// if(condition){
+// return 'interruptting'; --> stop exe function code
+// }
+// }
+
+/* two way if user did`t enter parameter so it is default value*/
+//1- function test(user,age)
+// {
+// user=user||"unknown";
+// age=age||0;
+// }
+//2- function test(user="unknown",age=0)
+// {
+//
+// }
+
+/* if number of parameters unknown we can use rest parameter it is work as array ,shoud be last parameter func and use only once*/
+// function test(...parameters) {
+//     for (const value of parameters) {
+//         console.log(value)
+//     }
+// }
+
+// { higher order function }
+// let newArray = myArray.map(function(e){return e+e})--> apply process in each element of the array and return result in new array
+// let newArray = myArray.filter(function(e){return e>5})--> apply condition in each element of the array and return only satisfied element in new array
+// let newValue = myArray.reduce(function(start,next){return start+next})--> return value (result of return process),at first loop start is first array element and next is always the next element of start ,next loop start = oldStart proccess oldNext
+// let newValue = myArray.reduce(function(start,next){return start+next},5)--> if u want to use special start value at beginning ,in this case the next value will be the first element of the array
+// domObjects.forEach(function(ele){ele.style.. .}) --> for chat with each array elemet with same message 
+
