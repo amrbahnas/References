@@ -68,6 +68,8 @@
 //myArray.lastIndexOf(value,startIndexForSearch[op]) -->(start search from end) return the index of the value at the array ,if not found return -1
 //myArray.includes(value,startIndexForSearch[op]) --> search and return true or false
 //myArray.sort(); --> for sort array element alphabetic 1 2 20 30 4 50 9
+//myArray.sort((a,b)=>a-b); --> for Progressive sort
+//myArray.sort((a,b)=>b-a); --> for descending sort
 //myArray.reverse(); --> reverse array element
 //myArray.slice(start,stop[op]) --> take slice of elements from array ,return as new array
 //myArray.splice(start,#delete[0 for no delete],newElement) -->  we can select elementCount from start index to delete from the array ,also u can add newElement at start [index u want]
@@ -79,9 +81,9 @@
 // console.log(theAge) --> [1, 'A', 2, 3, 4, 5, 6, 7, 8]
 // End Ex /
 //let allArrays= arrayOne.concat(arrayTwo,arrayThree,[1,2,3],"A",...); --> merge Arrays to one array
-//myArray.join(separateSign); -->  return array as a String 
+//myArray.join(separateSign); -->  return array as a String
 
- 
+
 // for (const property in object) {
 //     object[property];
 // }
@@ -148,5 +150,148 @@
 // let newArray = myArray.filter(function(e){return e>5})--> apply condition in each element of the array and return only satisfied element in new array
 // let newValue = myArray.reduce(function(start,next){return start+next})--> return value (result of return process),at first loop start is first array element and next is always the next element of start ,next loop start = oldStart proccess oldNext
 // let newValue = myArray.reduce(function(start,next){return start+next},5)--> if u want to use special start value at beginning ,in this case the next value will be the first element of the array
-// domObjects.forEach(function(ele){ele.style.. .}) --> for chat with each array elemet with same message 
+// domObjects.forEach(function(ele){ele.style.. .}) --> for chat with each array elemet with same message
+
+//{{object}}
+// let object = {name:"amr",age:22};
+// let object = {};
+// let object = new object({});
+// let copyObject = Object.create(mainObject) => any change on mainObject also will change on copyObject
+// let allObjects = Object.assign(obj1,obj2,obj3,{name:amr}); => sum all objects in one object
+//myObject.about="iam amr"; => add new key with value to object or override the key value if key found
+
+
+//{{Dom-selector}}
+// document.getElementById("");
+// document.getElementsByTagName("");
+// document.getElementsByClassName("");
+// document.title;
+// document.body;
+// document.forms;
+// document.links[n].href="";
+// document.images[n].src="";
+// document.querySelector("");
+// document.querySelectorAll("");
+
+//{{Dom-attributes}}
+// myDiv.innerHtml="<span>hello</span>" => <div> <span>hello</span> </div>
+// myDiv.textcontent="<spa>hello</spa>" => <div> "<span>hello</span>" </div>
+// myDiv.id=""; => change or add id directly
+// myDiv.attributes; => return all atributes div have
+// myDiv.hasAttribute("datav"); => return true or false
+// myDiv.hasAttributes(); => return true[if have any attr] or false
+// myDiv.getAttribute("href"); => href content
+// myDiv.setAttribute("href","google.com"); => set href content
+// myDiv.removeAttribute("href"); => remove href attr
+
+//{{Dom-classes}}
+//myDiv.className; => return all class as string "landing stop color"
+//myDiv.classList; => return all class as array [landing,stop,color]
+//myDiv.classList.contains("classForSearch") => return true||false
+//-> EX myDiv.classList.contains("stop") => return true
+//myDiv.classList.item("#indexNumber") => return class name with indexNumber in classList Array
+//-> Ex myDiv.classList.item("0") => return "landing"
+//myDiv.classList.add("className") => Add className to my div
+//myDiv.classList.remove("className") => remove className to my div
+//myDiv.classList.toggle("className") => remove className if className found || add if not found
+
+//{{Dom-creator}}
+// let newDiv = document.createElement("div"); =>create html tag
+// let divText = document.createTextNode("IAM DIV"); => create "text"
+// let divComment = document.createComment("by amr"); => create <-comment->
+// newDiv.appendChild(divText); => push only one object created by document.create to newDiv
+// newDiv.append(divComment,divComment); => push multi object created by document.create to newDiv
+
+//{{Dom-children}}
+//myDiv.children; => return only element [tags] in it
+//myDiv.childrenNodes; return all elememt in it [tags,comment,text]
+//myDiv.firstChild; => return first child in myDiv [tags,comment,text]
+//myDiv.firstElemetChild => return First [tag] in myDiv
+//myDiv.lastChild => return last tag in myDiv
+//myDiv.lastElemetChild => return last tag in myDiv
+
+//{{Dom-add new element}}
+//myDiv.before("iam above myDiv") => add element before myDiv
+/*
+ <body>
+ iam above myDiv
+ myDiv
+ </body>
+ */
+//myDiv.after(document.createElement("p")) => add element after myDiv
+/*
+ <body>
+ myDiv
+ <p></p>
+ </body>
+ */
+//myDiv.append(mySpan) => push element in myDiv [at last]
+/*
+ <myDiv>
+ .
+ .
+ <span></span>
+ </myDiv>
+ */
+//myDiv.prepend(mySpan) => push element in myDiv [at first]
+/*
+ <myDiv>
+ <span></span>
+ .
+ .
+ </myDiv>
+ */
+
+//{{Dom-select Element around me}}
+//myDiv.nextSlibling();=> select next direct elelemt[tag,text,comment]
+//myDiv.nextElemetSlibling();=> select next direct tag
+//myDiv.previousSibling();=> select prevoius direct elelemt [tag,text,comment]
+//myDiv.previousElementSibling();=> select prevoius direct tag
+//myDiv.parentElement();=> select parent tag
+//myDiv.remove();=> remove myDiv from page
+
+//{{Dom-clone element}}
+//let cloneDiv = myDiv.cloneNode() => clone only myDiv body (<myDiv></myDiv>)
+//let cloneDiv = myDiv.cloneNode(true) => clone all myDiv  (<myDiv>contenet</myDiv>)
+
+
+//{{Dom-cssStyle}}
+//myDiv.style.property="value"; => set property elemet style
+//myDiv.style.cssText="code css"; => set multi styles by write css code
+//myDiv.style.setProperty("PropertyName","value","important[op]") => add inline style
+//=> Ex document.documentElement.setProperty("--main-color","red") => edit root: varaible value
+//myDiv.style.removeProperty("PropertyName") => Remove inline  style
+//document.styleSheets[#file].rules[#block].style..Ex-.removeProperty("line-height") =>edit external css file;
+//=> EX document.styleSheets[0].rules[5].style.setProperty("color","red");
+
+//{{Dom-events}}
+//object.onclick=function(){};
+//object.onclick=()=>{};
+//1-onclick
+//element.click() => forced click
+//2-onconttextmenu (right click)
+//3-onmouseEnter
+//4-onmouseLeave
+//5-window.onload
+//6-window.onscroll
+//7-window.onresize
+//8-input.onfocus
+//element.focus() => forced focus
+//9-input.onblur
+//element.blur() => forced blur
+//10-input.onkeyPress
+//11-form.onsubmit
+//element.event=function(e){} => e will have all info about this event Ex e.key (carry current input value user entered for onkeyPress event) | e.preventDefault;
+//element.addEventListener("Event",function1()); => for add multi function on same element
+//element.addEventListener("Event",function2());
+/*
+important case for addEventListener is target element which created by user (after js code loaded)
+document.addEventListener("click",function(e){
+    if (e.target.className==="userCreated"){
+        console.log("iam new element")
+    }
+})
+*/
+
+
 
