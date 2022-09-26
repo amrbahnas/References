@@ -29,7 +29,7 @@
 //value.lastIndexOf("string") --> start search from end
 //value.search("string")
 //value.slice(start)
-//value.slice(start,stop)=> can use for delete first and last element Ex => slice(1,-1)
+//value.slice(start,stop)
 //value.substring(start,stop) like slice with two diff [ if start > stop  exchange it automatic ] [ if input index is negative --> replace it to zero ]
 //value.subStr(startIndex,#char) write number of char u want instead of stop index
 //value.repeat(n)
@@ -71,7 +71,7 @@
 //myArray.sort((a,b)=>a-b); --> for Progressive sort
 //myArray.sort((a,b)=>b-a); --> for descending sort
 //myArray.reverse(); --> reverse array element
-//myArray.slice(start,stop[op]) --> take slice of elements from array ,return as new array
+//myArray.slice(start,stop[op]) --> take slice of elements from array ,return as new array , can use for delete first and last element Ex => slice(1,-1)
 //myArray.splice(start,#delete[0 for no delete],newElement) -->  we can select elementCount from start index to delete from the array ,also u can add newElement at start [index u want]
 // Ex at Splice //
 // let theAge = [1, 2, 3, 4, 5, 6, 7, 8];
