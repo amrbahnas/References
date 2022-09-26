@@ -29,7 +29,7 @@
 //value.lastIndexOf("string") --> start search from end
 //value.search("string")
 //value.slice(start)
-//value.slice(start,stop)
+//value.slice(start,stop)=> can use for delete first and last element Ex => slice(1,-1)
 //value.substring(start,stop) like slice with two diff [ if start > stop  exchange it automatic ] [ if input index is negative --> replace it to zero ]
 //value.subStr(startIndex,#char) write number of char u want instead of stop index
 //value.repeat(n)
