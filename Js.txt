@@ -148,7 +148,7 @@
 // { higher order function }
 // let newArray = myArray.map(function(e){return e+e})--> apply process in each element of the array and return result in new array
 // let newArray = myArray.filter(function(e){return e>5})--> apply condition in each element of the array and return only satisfied element in new array
-// let newValue = myArray.reduce(function(start,next){return start+next})--> return value (result of return process),at first loop start is first array element and next is always the next element of start ,next loop start = oldStart proccess oldNext
+// let newValue = myArray.reduce(function(start,next){return start+next},0)--> return value (result of return process),at first loop start is first array element and next is always the next element of start ,next loop start = oldStart proccess oldNext
 // let newValue = myArray.reduce(function(start,next){return start+next},5)--> if u want to use special start value at beginning ,in this case the next value will be the first element of the array
 // domObjects.forEach(function(ele){ele.style.. .}) --> for chat with each array elemet with same message
 
