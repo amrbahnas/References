@@ -71,7 +71,7 @@
 //myArray.sort((a,b)=>a-b); --> for Progressive sort
 //myArray.sort((a,b)=>b-a); --> for descending sort
 //myArray.reverse(); --> reverse array element
-//myArray.slice(start,stop[op]) --> take slice of elements from array ,return as new array , can use for delete first and last element Ex => slice(1,-1)
+//myArray.slice(start,stop[op]) --> take slice of elements from array ,return as new array
 //myArray.splice(start,#delete[0 for no delete],newElement) -->  we can select elementCount from start index to delete from the array ,also u can add newElement at start [index u want]
 // Ex at Splice //
 // let theAge = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -146,9 +146,9 @@
 // }
 
 // { higher order function }
-// let newArray = myArray.map(function(e,,index,array){return e+e})--> apply process in each element of the array and return result in new array
-// let newArray = myArray.filter(function(e,index,array){return e>5})--> apply condition in each element of the array and return only satisfied element in new array
-// let newValue = myArray.reduce(function(start,next){return start+next},0)--> return value (result of return process),at first loop start is first array element and next is always the next element of start ,next loop start = oldStart proccess oldNext
+// let newArray = myArray.map(function(e){return e+e})--> apply process in each element of the array and return result in new array
+// let newArray = myArray.filter(function(e){return e>5})--> apply condition in each element of the array and return only satisfied element in new array
+// let newValue = myArray.reduce(function(start,next){return start+next})--> return value (result of return process),at first loop start is first array element and next is always the next element of start ,next loop start = oldStart proccess oldNext
 // let newValue = myArray.reduce(function(start,next){return start+next},5)--> if u want to use special start value at beginning ,in this case the next value will be the first element of the array
 // domObjects.forEach(function(ele){ele.style.. .}) --> for chat with each array elemet with same message
 
@@ -293,5 +293,64 @@ document.addEventListener("click",function(e){
 })
 */
 
+
+//{{Bom-time}}
+//let timeOut = setTimeOut(function(),time,parameterForTheFunctionIfNeed) => execute function once after specific time
+//clearTimeOut(timeOut) => for stop setTimeOut execute
+//let interval = setInterval(function(),time,parameterForTheFunctionIfNeed) => execute function every specific time
+//clearInterval(interval) => for stop interval execute
+
+//{{Bom-Location(pageURL)}}
+//EX URL (href) : https://www.google.com/translate
+//protocol :https
+//host :www.google.com
+//hash :/translate
+//location.href="https://www.facebook.com" => method get or change All current URL [go to new site] ,save old URL at browser History
+//location.host="www.facebook.com" => get or change webSite Name
+//location.protocol="http" => get or change URL protocol
+//location.hash="/about" => get or change URL hash
+//location.reload(); => reload page
+//location.replace("https://www.twitter.com") => function change All current URL [go to new site] without save old URL at browser History
+//location.assign("") =>function change All current URL [go to new site] ,save old URL at browser History ,like .href
+
+//window.close() => close current window
+//let newWindow = window.open(URL[op],"_blank","width=xx,height=xx,left=xx,top=xx") => open new tap window
+//newWindow.focus() => change window focus to newWindow
+//window.print() => open print page for print current window
+
+//{{Bom-windowHistory}}
+//history.lenght => number of sites at current window history
+//history.back() => step back for last page
+//history.forward() =>step forward for next page you was opened
+//history.go(N) => sites in window history storage as array every site has index N
+
+//{{Bom-windowScroll}}
+//window.scrollY => get current scrollY value
+//window.scrollX => get current scrollX value
+//window.scrollTo(x,y) => scroll to position(x,y)
+//window.scrollBy(x,y) => from current scroll value increase value by (x,y)
+//window.scrollto({left:xx,top:xx,behavior:"smooth"}) => most use for scroll to specific position with special behavior
+
+//{{Bom-windowLocalStorage(object)}}
+//window.localStorage.setItem("key","value") => set new value by function
+//window.localStorage.key="value" => set new value
+//window.localStorage["key"]="value" => set new value by function
+//window.localStaorage.getItem("key") => get saved value by his key
+//window.localStaorage.key => get saved value by his key
+//window.localStaorage["key"] =>get saved value by his key
+//window.localStaorage.removeItem("key") =>remove saved value by his key
+//window.localStaorage.clear() => clear localStaorage
+//window.localStaorage.key(N) => get key name saved at index N
+
+//{{Bom-windowSessionStorage(object)}} => saved data only if page reloaded ,if tap close or window data will remove
+//window.sessionStorage.setItem("key","value") => set new value by function
+//window.sessionStorage.key="value" => set new value
+//window.sessionStorage["key"]="value" => set new value by function
+//window.sessionStorage.getItem("key") => get saved value by his key
+//window.sessionStorage.key => get saved value by his key
+//window.sessionStorage["key"] =>get saved value by his key
+//window.sessionStorage.removeItem("key") =>remove saved value by his key
+//window.sessionStorage.clear() => clear localStaorage
+//window.sessionStorage.key(N) => get key name saved at index N
 
 
