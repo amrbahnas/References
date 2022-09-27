@@ -1,9 +1,10 @@
 
 //{numbers}
-// value.toString()
-// value.tofixed(n) --> select how many number after sign
-// parseInt(value)
-// parseFloat(value)
+//value.toString()
+//string(value)
+//value.tofixed(n) --> select how many number after sign
+//parseInt(value)
+//parseFloat(value)
 //isinteger(value)
 //isNAN(value)
 
