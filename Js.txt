@@ -1,6 +1,6 @@
 
 //{numbers}
-// value.toString
+// value.toString()
 // value.tofixed(n) --> select how many number after sign
 // parseInt(value)
 // parseFloat(value)
