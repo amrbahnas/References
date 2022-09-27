@@ -5,6 +5,7 @@
 //value.tofixed(n) --> select how many number after sign
 //parseInt(value)
 //parseFloat(value)
+//number(value)
 //isinteger(value)
 //isNAN(value)
 
