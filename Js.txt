@@ -38,7 +38,7 @@
 //value.startsWith("string",n) --> is value from index n start with string ?
 //value.endsWith("string") --> is value end with string ?
 //value.endsWith("string",#length) --> is first #length char at value end with string ?
-//value.split() --> convert string to array
+//value.split("") --> convert string to array
 //value.split("|") split element every |
 //value.split("|",n) add number of the split
 
