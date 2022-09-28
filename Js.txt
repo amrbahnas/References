@@ -148,7 +148,7 @@
 // }
 
 // { higher order function }
-// let newArray = myArray.map(function(e){return e+e})--> apply process in each element of the array and return result in new array
+// let newArray = myArray.map(function(e){return e+e})--> apply process in each element of the array and return result in new array (Array loop )
 // let newArray = myArray.map((e)=> e+e ) -->   dont use {} with arow funcion because it wil return undefined
 // let newNumberArray = myStringNumberArray.map(Number) --> ['2','3'] => [2,3]
 // let newArray = myArray.filter(function(e){return e>5})--> apply condition in each element of the array and return only satisfied element in new array
