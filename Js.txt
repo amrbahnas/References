@@ -358,3 +358,94 @@ document.addEventListener("click",function(e){
 //window.sessionStorage.key(N) => get key name saved at index N
 
 
+//{{Destructuring Array-easySwap}}
+//let [a,b,c] = ["amr","ahmed","mahmoud"]
+//let [a,b,c,d="unknown"] = ["amr","ahmed","mahmoud"]
+//let [a,,b,d="unknown"] = ["amr","ahmed","mahmoud"] => a="amr" b="mahmoud" d="unknown"
+//let book ="video",video ="book" =>  [book,video]=[video,book];
+
+
+/*
+//{{Destructuring object ,variablesName must equal keysName - variables sorting not require }}
+let info ={
+    theName:"amr",
+    age:22,
+    country:"egypt"
+}
+
+const {theName,counrtry,age}= info => declare varaibles(with same object key name) and set value
+console.log(theName) => "amr"
+
+const {theName:N,country:C,age:A}= info => declare varaibles with nickname
+console.log(N) => "amr"
+
+const {theName:N,address:C="zagazig",age:A}= info => set default value if value not found
+console.log(c) => "zagazig"
+
+let theName,contury,age;
+({theName,counrtry,age}= info)  => if varaibles has declared before must use () between all progress 
+console.log(theName) => "amr"
+*/
+
+/*
+{ {Destructuring nestedObject } }
+let user = {
+    theName: "amr",
+    age: 22,
+    skills: {
+        html: 70,
+        css: 80
+    }
+}
+
+const { skills: { html: H } } = user;
+console.log(html) || console.log(H)  => 70
+
+const { html: H, css: C } = user.skills;
+console.log(html) || console.log(H)  => 70
+
+console.log(css) || console.log(C)  => 80
+*/
+
+/*
+ {{Destructuring functionParaneters}}
+let user = {
+    theName: "amr",
+    age: 22,
+    skills: {
+        html: 70,
+        css: 80
+    }
+}
+
+function skills({ skills: { html: H, css: C } } = user) {
+    console.log(H)
+    console.log(C)
+}
+*/
+
+
+/*
+{ {Destructuring mixed content } }
+let employer = {
+    theName: "amr",
+    age: 22,
+    skills: {
+        html: 70,
+        css: 80
+    }
+    adress: {
+        egypt: "zagazig",
+        ksa: "riyadh"
+    }
+}
+
+function info({ theName: N, skills: { html: H, css: C }, adress: { egypt } } = employer) {
+    console.log(N) => amr
+    console.log(H) => 70
+    console.log(C) => 80
+    console.log(egypt) => zagazig
+}
+*/
+
+
