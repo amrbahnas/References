@@ -77,10 +77,11 @@
 //myArray.splice(start,#delete[0 for no delete],newElement) -->  we can select elementCount from start index to delete from the array ,also u can add newElement at start [index u want]
 // Ex at Splice //
 // let theAge = [1, 2, 3, 4, 5, 6, 7, 8];
-// console.log(theAge.splice(3, 1,)) --> only delete 4 from array ,line return [4]
+// console.log(theAge.splice(3, 1)) --> only delete 4 from array ,line return [4]
 // console.log(theAge) -->[1, 2, 3, 5, 6, 7, 8]
 // console.log(theAge.splice(1, 0, "A"));  --> add char A to Array at index 1 ,line return [] (no element deleted)
 // console.log(theAge) --> [1, 'A', 2, 3, 4, 5, 6, 7, 8]
+// theAge.splice(0) --> clear array []
 // End Ex /
 //let allArrays= arrayOne.concat(arrayTwo,arrayThree,[1,2,3],"A",...); --> merge Arrays to one array
 //myArray.join(separateSign); -->  return array as a String
