@@ -59,6 +59,7 @@
 //{array}//
 //Array.isArray(myArray); ---> true or false
 //myArray.length
+//[1,2,3].toString() // "1,2,3"
 //if we add element at extra array index , js will add the element at this index , before it will be empty from the last main array element
 //myArray[myArray.lenght]=value; --> add value to end of the array  [...,value];
 //myArray[myArray.lenght-1] -->>  get the last array element
