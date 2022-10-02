@@ -77,11 +77,10 @@
 //myArray.splice(start,#delete[0 for no delete],newElement) -->  we can select elementCount from start index to delete from the array ,also u can add newElement at start [index u want]
 // Ex at Splice //
 // let theAge = [1, 2, 3, 4, 5, 6, 7, 8];
-// console.log(theAge.splice(3, 1)) --> only delete 4 from array ,line return [4]
+// console.log(theAge.splice(3, 1,)) --> only delete 4 from array ,line return [4]
 // console.log(theAge) -->[1, 2, 3, 5, 6, 7, 8]
 // console.log(theAge.splice(1, 0, "A"));  --> add char A to Array at index 1 ,line return [] (no element deleted)
 // console.log(theAge) --> [1, 'A', 2, 3, 4, 5, 6, 7, 8]
-// theAge.splice(0) --> clear array []
 // End Ex /
 //let allArrays= arrayOne.concat(arrayTwo,arrayThree,[1,2,3],"A",...); --> merge Arrays to one array
 //myArray.join(separateSign); -->  return array as a String
@@ -130,6 +129,11 @@
 // }
 // }
 
+//function testArg (){
+// return arguments;
+// }
+// testArg(3,4) => 3,4
+
 /* two way if user did`t enter parameter so it is default value*/
 //1- function test(user,age)
 // {
@@ -149,13 +153,10 @@
 // }
 
 // { higher order function }
-// let newArray = myArray.map(function(e){return e+e})--> apply process in each element of the array and return result in new array (Array loop )
+// let newArray = myArray.map(function(e){return e+e})--> apply process in each element of the array and return result in new array
 // let newArray = myArray.map((e)=> e+e ) -->   dont use {} with arow funcion because it wil return undefined
 // let newNumberArray = myStringNumberArray.map(Number) --> ['2','3'] => [2,3]
 // let newArray = myArray.filter(function(e){return e>5})--> apply condition in each element of the array and return only satisfied element in new array
-// myArray =["good","good","good","bad","bad","bad","good"];
-// let newArray = myArray.filter("bad")=> return newArray without "bad" element => ["good","good","good","good"]
-// let numberGood = myArray.filter("bad").lenght=> return number of good at myArray
 // let newValue = myArray.reduce(function(start,next){return start+next})--> return value (result of return process),at first loop start is first array element and next is always the next element of start ,next loop start = oldStart proccess oldNext
 // let newValue = myArray.reduce(function(start,next){return start+next},5)--> if u want to use special start value at beginning ,in this case the next value will be the first element of the array
 // domObjects.forEach(function(ele){ele.style.. .}) --> for chat with each array elemet with same message
@@ -167,6 +168,7 @@
 // let copyObject = Object.create(mainObject) => any change on mainObject also will change on copyObject
 // let allObjects = Object.assign(obj1,obj2,obj3,{name:amr}); => sum all objects in one object
 //myObject.about="iam amr"; => add new key with value to object or override the key value if key found
+//Object.keys(myObject) => return object keys as StringArray => ["name","age"]
 
 
 //{{Dom-selector}}
@@ -387,7 +389,7 @@ const {theName:N,address:C="zagazig",age:A}= info => set default value if value 
 console.log(c) => "zagazig"
 
 let theName,contury,age;
-({theName,counrtry,age}= info)  => if varaibles has declared before must use () between all progress 
+({theName,counrtry,age}= info)  => if varaibles has declared before must use () between all progress
 console.log(theName) => "amr"
 */
 
@@ -453,3 +455,157 @@ function info({ theName: N, skills: { html: H, css: C }, adress: { egypt } } = e
 */
 
 
+//{{dataType}}
+/*
+---> Set <---
+let myData= [1,1,1,2,1,3];
+let myUnique = new set(myData) => return new object without array doublicate element
+console.log(myUnique) => {1,2,3}
+-> Methodes <-
+myUnique.add(4) => {1,2,3,4}
+myUnique.delete(4) => {1,2,3}
+myUnique.clear() => {}
+myUnique.has(4) => false
+
+---> Weak Set <---
+weakSet Allows Garbage collector to do tis task but not map
+Garbage :service in browser ,it delete varaible which refere to null
+let a = {name:"amr"}
+let b = {name:"ahmed"}
+let WS = new WeakSet([a,b,b]) receive only array with object Element [not allow another type just Object]
+console.log(WS) => {{a},{b}}
+-> Methodes <-
+let c ={age:22}
+myUnique.add(c) => {{a},{b},{c}}
+myUnique.delete(c) => {{a},{b},{c}}
+myUnique.clear() => {}
+myUnique.has(a) => true
+
+---> map <---
+dataType like Object ,here u can write func or string or object as key(can be anything) [it is not allow at object]
+let myMap = new Map([
+    [key,value],
+    [key,value]
+]) => create map and add item in same line
+--> Methodes <--
+let myMap = new Map();
+myMap.set(10,"number"); => add item
+myMap.set("10","string");
+myMap.get(10) => "number" => get item by key
+myMap.get("10") => "string"
+myMap.size() => 2
+myMap.delete("10") => delete item by key
+myMap.clear()
+myMap.has(10) => search  item by key [true || false]
+
+---> Weak Map <---
+weakMap Allows Garbage collector to do tis task but not map
+Garbage :service in browser ,it delete varaible which refere to null
+weakmap => key can be only object
+let myMap = new WeakMap() => create weakmap
+--> Methodes <--
+let info ={name :"amr"}
+myMap.set(info); => add object item
+myMap.get(info) => "number" => get object item
+myMap.delete(info) => delete object item
+myMap.clear()
+myMap.has(10) => search  item by key [true || false]
+*/
+
+//{{Array.from}}
+//Array.from("amr") = >["a","m","r"] => return anyType(string || object) to Array
+//Array.from("1234",function(n){return +n + +n}) => [2,4,6,8] do process on Array before return it(like map method)
+/*
+Array.from Ex
+1-
+let myArray =[1,1,1,2];
+let unique = new Set(myArray) => {1,2} object
+cosole.log(Array.from(unique)) => [1,2] array
+Another Solution => console.log([...new Set(myArray)]) => convert set result to array
+2-
+function argToArray(){
+    return Array.from(arguments);
+ }
+
+*/
+
+
+//{{myArray.copyWithIn(target,start,stop)}}
+// copy some elements from myArray and put it in target element (replace target element with copy elements)
+//let myArry = [1,2,3,"a","b",4]
+//myArray.copyWithIn(1,3,5) => (target ,startCopy ,stopCopy)
+//console.log(myArray) => [1,"a","b",3,"a","b"]
+
+
+
+//{{myArray.some(func,thisFuncArguments)}}
+// like filter ,loop at array ,if one element fulfill the condition method return true
+/*
+1-
+let numbers = [1,2,3,4,5,6,7]
+let check = numbers.some((e)=>e>5) if found element greater than 5 ,will return true
+console.log(check) => true
+2-
+let mynumber = 5;
+let numbers = [1,2,3,4,5,6,7]
+let check = numbers.some(function(e){return e> this},mynumber) add variable can use as this in function to help in check
+*/
+/*
+Ex for test are there array elelemt in the range or not
+let range = {
+    min :10,
+    max:20
+}
+let checkRange = myArray.some(function(e){
+return e>= this.min && e<=this.max
+},range)
+*/
+
+//{{myArray.every(func,thisFuncArguments)}}
+// like some ,loop at array ,if [ALL] element fulfill the condition method return true
+
+//{{spread syntax}}
+//console.log(..."amr") => a m r
+//console.log([..."amr"]) => ['a','m','r'];
+//let AllArray = [...arrayOne,...arrayTwo]; => concatenate Arrays
+//let copyArray = [...myArray]; =>copy Array
+//myFrindsArray.push(...newFriendArray); =>push inside Array
+//math.max(...numberArray); => with math object
+//let allObject = {...objectOne,...ObjectTwo,e:5} => spread with object => merge object
+
+
+//{{Regular}} => /value/gi
+// > in value <
+// (x|y) => can be x or y
+// [0-9] => number from 0 to 9
+// [^0-9] => any character not  from 0 to 9
+// [^0-9] => any character not  from 0 to 9
+// [a-z] => any character from a to z
+// [^a-z] => not any character from a to z
+// [A-Z] =>  any character from A to Z
+// [A-Za-z] =>  any character from A to Z || a to z
+// [A-Za-z0-9] =>  any character from A to Z || a to z || 0 to 9
+// [^A-Za-z0-9] =>  get special character
+// \w => one char
+// \W => not char
+// \d => one digital 0-9
+// \D => Not one digital 0-9
+// \s => one white space
+// \S => not white space
+// \b => matching at beginning or end of work  \bAMR =>beginning     AMR\b =>end
+// \B => Not matching at beginning or end of work
+// x+ => x can be one or more
+// x* => x can be null or more
+// x? => x can be found or nor
+// x? => x can be found or nor
+// x{5} => x 5 times  [xxxxx]
+// x{5,10} => x 5 to 10 times
+// x{5,} => x 5 to infi times
+// x$ => string end with x
+// x^ => string start with x
+// ?=x => string follwed by x [amrx] => amr
+// ?!x => string not follwed by x
+// TXT.replaceAll(reg,"value")
+// TXT.replace(/\d/g ,d => d < 5 ? 0 : 1);
+//srting.match(reg) => []
+//reg.test(string) => true || false
