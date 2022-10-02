@@ -608,7 +608,7 @@ return e>= this.min && e<=this.max
 // ?!x => string not follwed by x
 // TXT.replaceAll(reg,"value")
 // TXT.replace(/\d/g ,d => d < 5 ? 0 : 1);
-//srting.match(reg) => []
+//srting.match(reg) => [...] ,if not found => return null
 //reg.test(string) => true || false
 /*
  //using varaible with regular
