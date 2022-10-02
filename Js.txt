@@ -1,3 +1,4 @@
+// (value || "save" ) => if value = null or undefined replace value to "save"
 
 //{numbers}
 //value.toString()
@@ -609,6 +610,11 @@ return e>= this.min && e<=this.max
 // TXT.replaceAll(reg,"value")
 // TXT.replace(/\d/g ,d => d < 5 ? 0 : 1);
 //srting.match(reg) => [...] ,if not found => return null
+/* EX For ignore null value 
+// function getCount(str) {
+//         return (str.match(/a|e|i|o|u/g) || []).length;
+// }
+*/
 //reg.test(string) => true || false
 /*
  //using varaible with regular
