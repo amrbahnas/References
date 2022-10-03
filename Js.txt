@@ -207,7 +207,19 @@ Object.freeze(myArray) => disable array clone and edit
 //myObject.about="iam amr"; => add new key with value to object or override the key value if key found
 //Object.keys(myObject) => return object keys as StringArray => ["name","age"]
 
+/* 
+{{ Object with forEach() }}
+const user = {name:"amr",age:22}
+Object.keys(user) = >[name,age]
+Object.keys(user).forEach(el => {
+console.log(`${el} : ${user[el]}`); => name:'amr' age:22
+}
+*/
 
+
+
+
+*/
 //{{Dom-selector}}
 // document.getElementById("");
 // document.getElementsByTagName("");
