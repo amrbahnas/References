@@ -529,7 +529,7 @@ const countries = [
 
 
 /*
-{ {Destructuring object of nested array } }
+{ { Destructuring object of nested array } }
 const info = {
     persons: [
         { name: "amr", age: 22 },
@@ -543,6 +543,21 @@ console.log(names) => girl
 console.log(height) => 150cm
  
 */
+
+/*
+{{ Destructuring with ForEach  }}
+let countries = [
+                {names:"egypt",loc:"afrcia"},
+                {names:"uae",loc:"asia"},
+                {names:"ksa",loc:"asia"},
+                {names:"uk",loc:"euro"}             
+]
+
+contries.froEach(({names})=>{
+console.log(names);  => egypt ,uae ,ksa ,uk
+}
+*/
+
 
 //{{dataType}}
 /*
