@@ -188,16 +188,21 @@ Object.freeze(myArray) => disable array clone and edit
 // }
 
 //const funcName = (e) => e*e ;
-
+/*
 // { higher order function }
 // let newArray = myArray.map(function(e){return e+e})--> apply process in each element of the array and return result in new array
 // let newArray = myArray.map((e)=> e+e ) -->   dont use {} with arow funcion because it wil return undefined
-// let newNumberArray = myStringNumberArray.map(Number) --> ['2','3'] => [2,3]
+// let newNumberArray = myStringNumberArray.map(Number) --> ['2','3',"A"] => [2,3,NAN] => map convert string to number
+
 // let newArray = myArray.filter(function(e){return e>5})--> apply condition in each element of the array and return only satisfied element in new array
+// let NumberArray = MYArray.filter(Number) --> [5,4,6,"8","amr","ahmed"] => [5,4,6,'8'] => return only number
+// let newArray = myArray.filter((el)=> el.includes("yes")) --> return all element contain "yes"
+
 // let newValue = myArray.reduce(function(start,next){return start+next})--> return value (result of return process),at first loop start is first array element and next is always the next element of start ,next loop start = oldStart proccess oldNext
 // let newValue = myArray.reduce(function(start,next){return start+next},5)--> if u want to use special start value at beginning ,in this case the next value will be the first element of the array
-// domObjects.forEach(function(ele){ele.style.. .}) --> for chat with each array elemet with same message
 
+// domObjects.forEach(function(ele){ele.style.. .}) --> for chat with each array elemet with same message
+*/
 //{{object}}
 // let object = {name:"amr",age:22};
 // let object = {};
