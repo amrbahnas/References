@@ -401,14 +401,19 @@ document.addEventListener("click",function(e){
 //window.sessionStorage.key(N) => get key name saved at index N
 
 
-//{{Destructuring Array-easySwap}}
+//{{Destructuring Array-easySwap-spread}}
 //let [a,b,c] = ["amr","ahmed","mahmoud"]
 //let [a,b,c,d="unknown"] = ["amr","ahmed","mahmoud"]
 //let [a,,b,d="unknown"] = ["amr","ahmed","mahmoud"] => a="amr" b="mahmoud" d="unknown"
 //let book ="video",video ="book" =>  [book,video]=[video,book];
 
+//let friends = ['amr','ahmed','mahmoud','ali'];
+// let [name1,...other] = friends;
+// console.log(name1) => amr
+// console.log(other) => ['ahmed','mahmoud','ali']
 
 /*
+
 //{{Destructuring object ,variablesName must equal keysName - variables sorting not require }}
 let info ={
     theName:"amr",
