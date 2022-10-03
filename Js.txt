@@ -23,6 +23,14 @@ js at first takes all variables and func at file beginning with value = undefine
 //BigInt
 //Symbol
 
+//referance type/prop
+1-(mutate types) can edit it without re-assign
+2-working:(pass by object) array2 = array1 => array2 point array1 referance(point value) ,so if array1 value changed ,array2 will have same change and vice versa  
+//array ,object ,function
+
+let colneArray = Object.assign([],myArray) => clone new array with new referance
+Object.freeze(myArray) => disable array clone and edit
+
 // (value || "save" ) => if value = null or undefined replace value to "save"
 
 //{numbers}
