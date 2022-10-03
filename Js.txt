@@ -187,6 +187,8 @@ Object.freeze(myArray) => disable array clone and edit
 //     }
 // }
 
+//const funcName = (e) => e*e ;
+
 // { higher order function }
 // let newArray = myArray.map(function(e){return e+e})--> apply process in each element of the array and return result in new array
 // let newArray = myArray.map((e)=> e+e ) -->   dont use {} with arow funcion because it wil return undefined
