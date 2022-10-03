@@ -437,6 +437,11 @@ console.log(c) => "zagazig"
 let theName,contury,age;
 ({theName,counrtry,age}= info)  => if varaibles has declared before must use () between all progress
 console.log(theName) => "amr"
+
+
+// let friends = {first:"amr",second:"ahmed",third:"mahmoud"}
+// let {friend1,...other} = friends;
+// console.log(other) => {second:"ahmed",third:"mahmoud"}
 */
 
 /*
