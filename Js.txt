@@ -401,7 +401,7 @@ document.addEventListener("click",function(e){
 //window.sessionStorage.key(N) => get key name saved at index N
 
 
-//{{Destructuring Array-easySwap-spread}}
+//{{Destructuring Array-easySwap-withSpread-withFunction}}
 //let [a,b,c] = ["amr","ahmed","mahmoud"]
 //let [a,b,c,d="unknown"] = ["amr","ahmed","mahmoud"]
 //let [a,,b,d="unknown"] = ["amr","ahmed","mahmoud"] => a="amr" b="mahmoud" d="unknown"
@@ -412,6 +412,10 @@ document.addEventListener("click",function(e){
 // console.log(name1) => amr
 // console.log(other) => ['ahmed','mahmoud','ali']
 
+function test (){
+return [1,2,3]
+}
+let [n1,..nms] = test();
 /*
 
 //{{Destructuring object ,variablesName must equal keysName - variables sorting not require }}
