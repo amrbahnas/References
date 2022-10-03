@@ -216,7 +216,11 @@ console.log(`${el} : ${user[el]}`); => name:'amr' age:22
 }
 */
 
-
+/* 
+{{ Object with map() and destructuring }}
+const user = [{name:"amr",age:22},{name:"mahmoud",age:22},{name:"alo",age:22},{name:"ahmed",age:22}]
+const userName = user.map((el)=>{el.name}; => [amr ,mahmoud ,alo ,ahmed]
+*/
 
 
 */
@@ -564,10 +568,16 @@ let countries = [
                 {names:"ksa",loc:"asia"},
                 {names:"uk",loc:"euro"}             
 ]
-
 contries.froEach(({names})=>{
 console.log(names);  => egypt ,uae ,ksa ,uk
 }
+*/
+
+/* 
+{{ Object with map() and Destructuring }}
+const user = [{name:"amr",age:22},{name:"mahmoud",age:22},{name:"alo",age:22},{name:"ahmed",age:22}]
+
+const userName = user.map(({name})=>{name}; => [amr,mahmoud,alo,ahmed]
 */
 
 
