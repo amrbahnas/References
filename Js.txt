@@ -529,8 +529,8 @@ const info = {
     ]
 }
 
-const { persons: [, { more: [names, height] }] } = info;
-
+const { persons: [, {more:moreFormat, more: [names, height] }] } = info;
+console.log(moreFormat) => ["girl", "150cm"]
 console.log(names) => girl
 console.log(height) => 150cm
  
