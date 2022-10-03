@@ -1,3 +1,11 @@
+var problems :
+1- not respect block scope [for-loop ,if ,while...]
+if you declare varaible with var in block scope => this varaible will be global => you can access it outside the block scope 
+2- you can redeclare varaible with the same name
+3- varaible with var takes place in globally scoped (window)
+4- you can use varaible before declare it and will return undefined
+js at first takes all variables and func at file beginning with value = undefined ,untill declare line come
+
 // (value || "save" ) => if value = null or undefined replace value to "save"
 
 //{numbers}
