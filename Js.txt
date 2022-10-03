@@ -12,6 +12,17 @@ js at first takes all variables and func at file beginning with value = undefine
 //both support function & block scope
 //reject globally scope (window)
 
+//primative type/prop 
+1-(immutate types) cant edit it ,re-assign only
+2-working:(pass by value) varaible2 = varaible1 => varaible2 carry varaible1 value not address,so if varaible1 changed ,varaible2 not change     
+3-havent methods
+//undefined
+//Boolean
+//Number
+//String
+//BigInt
+//Symbol
+
 // (value || "save" ) => if value = null or undefined replace value to "save"
 
 //{numbers}
