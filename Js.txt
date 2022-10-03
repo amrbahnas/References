@@ -505,6 +505,36 @@ function info({ theName: N, skills: { html: H, css: C }, adress: { egypt } } = e
 }
 */
 
+/*
+{ {Destructuring array of object } }
+const countries = [
+                    {country:"egypt",loc:"africa"},
+                    {country:"ksa",loc:"asia"},
+                    "required"
+                  ];
+ const [{country,loc},,what] = countries;                 
+ console.log(country) => egypt
+ console.log(loc) =>africa
+ console.log(what) =>"required"
+ 
+*/
+
+
+/*
+{ {Destructuring object of nested array } }
+const info = {
+    persons: [
+        { name: "amr", age: 22 },
+        { name: "ahmed", age: 25, more: ["girl", "150cm"] }
+    ]
+}
+
+const { persons: [, { more: [names, height] }] } = info;
+
+console.log(names) => girl
+console.log(height) => 150cm
+ 
+*/
 
 //{{dataType}}
 /*
