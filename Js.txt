@@ -479,6 +479,14 @@ function skills({ skills: { html: H, css: C } } = user) {
     console.log(H)
     console.log(C)
 }
+
+OR
+
+skills(mySkillsObject);
+function skills({ skills: { html: H, css: C } }) {
+    console.log(H)
+    console.log(C)
+}
 */
 
 
