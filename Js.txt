@@ -217,11 +217,16 @@ console.log(`${el} : ${user[el]}`); => name:'amr' age:22
 */
 
 /* 
-{{ Object with map() and destructuring }}
+{{ Object with map()}}
 const user = [{name:"amr",age:22},{name:"mahmoud",age:22},{name:"alo",age:22},{name:"ahmed",age:22}]
-const userName = user.map((el)=>{el.name}; => [amr ,mahmoud ,alo ,ahmed]
+const userName = user.map((object)=>{object.name}; => [amr ,mahmoud ,alo ,ahmed]
 */
 
+/* 
+{{ Object with filter()}}
+const user = [{name:"amr",age:20},{name:"mahmoud",age:19},{name:"alo",age:18},{name:"ahmed",age:22}]
+const senoir = user.filter( (object) => { object.age > 19 }; => [{name:"amr",age:20},{name:"ahmed",age:22}]
+*/
 
 */
 //{{Dom-selector}}
@@ -576,8 +581,13 @@ console.log(names);  => egypt ,uae ,ksa ,uk
 /* 
 {{ Object with map() and Destructuring }}
 const user = [{name:"amr",age:22},{name:"mahmoud",age:22},{name:"alo",age:22},{name:"ahmed",age:22}]
+const userName = user.map(({name,age})=>{name}; => [amr,mahmoud,alo,ahmed]
+*/
 
-const userName = user.map(({name})=>{name}; => [amr,mahmoud,alo,ahmed]
+/* 
+{{ Object with filter()  and Destructuring }}
+const user = [{name:"amr",age:20},{name:"mahmoud",age:19},{name:"alo",age:18},{name:"ahmed",age:22}]
+const senoir = user.filter( ({name,age}) => { age > 19 }; => [{name:"amr",age:20},{name:"ahmed",age:22}]
 */
 
 
