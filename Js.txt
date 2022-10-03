@@ -228,6 +228,29 @@ const user = [{name:"amr",age:20},{name:"mahmoud",age:19},{name:"alo",age:18},{n
 const senoir = user.filter( (object) => { object.age > 19 }; => [{name:"amr",age:20},{name:"ahmed",age:22}]
 */
 
+/*
+!important Example
+const names = [
+    { name: "karem", age: 30 },
+    { name: "karim", age: 34 },
+    { name: "mohamed", age: 31 },
+    { name: "mohamed", age: 40 },
+    { name: "mona", age: 26 },
+    { name: "mina", age: 29 },
+    { name: "ahmed", age: 21 },
+    { name: "reham", age: 24 },
+    { name: "mina", age: 22 },
+    { name: "mahmoud", age: 19 },
+];
+
+let sortNames = names.sort((a, b) => b.age - a.age)   // => sort objects by age
+let sliceNames = sortNames.slice(0, 8); // => slice 8 objects from array
+let filterNames = sliceNames.filter(({ age }) => age > 30); // => filter object by age
+let mapNames = filterNames.map((el) => el.name === "karim" ? { ...el, name: "kareem" } : el); // => * object with name value karim replace value to kareem
+console.log(mapNames) => print last result
+
+*/
+
 */
 //{{Dom-selector}}
 // document.getElementById("");
