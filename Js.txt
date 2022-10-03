@@ -1,14 +1,14 @@
 var problems :
 1- not respect block scope [for-loop ,if ,while...]
 if you declare varaible with var in block scope => this varaible will be global => you can access it outside the block scope 
-2- you can redeclare varaible with the same name
+2- you can re-declare varaible with the same name in same scope
 3- varaible with var takes place in globally scoped (window)
 4- you can use varaible before declare it and will return undefined
 js at first takes all variables and func at file beginning with value = undefined ,untill declare line come
 
-//    let          and       const
-//reject re-declared    //reject re-declared
-//enable re-assign      //reject re-assign => const not alllow reset varaible value 
+//    let                                           const
+//reject re-declared in same scope    //reject re-declared in same scope
+//enable re-assign                    //reject re-assign => const not alllow reset varaible value 
 //both support function & block scope
 //reject globally scope (window)
 
