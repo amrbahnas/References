@@ -798,16 +798,18 @@ function solution(str, ending) {
 
 /*
 CartShop Application using find & map & forEach
+// current user cart
 const myCart = [
     { id: 1, quantity: 1 },
     { id: 2, quantity: 2 },
     { id: 4, quantity: 3 }
 ]
 
+// new user selected product
 
 const mySelection = { id: 12, quantity: 3 };
 
-
+// return new cart with new user product
 const handlerNewCart = (myCart, mySelection) => {
     const productStatus = myCart.find(({ id }) => id === mySelection.id)
     if (productStatus) {
@@ -819,17 +821,20 @@ const handlerNewCart = (myCart, mySelection) => {
     }
 
 }
+// new cart value
 
 const NewCart = handlerNewCart(myCart, mySelection);
 
 //final shopping cart => add name to products
-//api
+//info contain product name from api 
 const myCartNames = [
     { id: 1, name: 'phoner' },
     { id: 2, name: 'tv' },
     { id: 4, name: 'labtop' },
     { id: 12, name: 'playstation' }
 ]
+
+//app properites name to cart
 
 const getItemName = (id) => {
     const realItem = myCartNames.find(e => e.id === id)
@@ -842,5 +847,6 @@ myCartNames.forEach(element => {
 });
 
 console.log(myCartNames)
+
 
 */
