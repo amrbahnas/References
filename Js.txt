@@ -198,7 +198,7 @@ Object.freeze(myArray) => disable array clone and edit
 // let NumberArray = MYArray.filter(Number) --> [5,4,6,"8","amr","ahmed"] => [5,4,6,'8'] => return only number
 // let newArray = myArray.filter((el)=> el.includes("yes")) --> return all element contain "yes"
 
-// let newArray = myArray.find(function(e){return e>5})--> return first element satisfied condition
+// let newArray = myArray.find(function(e){return e>5})--> return first element satisfied condition , if mot found any element return undefined
 // let newArray = MYArray.find(Number) --> [5,4,6,"8","amr","ahmed"] => 5 => return only first number
 // let newArray = myArray.find((el)=> el.includes("yes")) --> return fisr element contain "yes" 
 
@@ -790,3 +790,30 @@ function solution(str, ending) {
         return regex.test(str)
 }
 */
+
+/*
+CartShop Application using find & map
+const myCart = [
+    { id: 1, quantity: 1 },
+    { id: 2, quantity: 2 },
+    { id: 4, quantity: 3 }
+]
+
+const mySelection = { id: 12, quantity: 3 };
+
+
+const handlerNewCart = (myCart, mySelection) => {
+    const productStatus = myCart.find(({ id }) => id === mySelection.id)
+    if (productStatus) {
+        return myCart.map(el =>
+            el.id === mySelection.id ? { ...el, quantity: el.quantity + mySelection.quantity } : el
+        )
+
+    } else {
+        return [...myCart, { ...mySelection, status: "new" }]
+    }
+
+}
+
+const NewCart = handlerNewCart(myCart, mySelection);
+console.log(NewCart)
