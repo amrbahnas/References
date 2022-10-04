@@ -198,7 +198,7 @@ Object.freeze(myArray) => disable array clone and edit
 // let NumberArray = MYArray.filter(Number) --> [5,4,6,"8","amr","ahmed"] => [5,4,6,'8'] => return only number
 // let newArray = myArray.filter((el)=> el.includes("yes")) --> return all element contain "yes"
 
-// let newArray = myArray.find(function(e){return e>5})--> return first element satisfied condition , if mot found any element return undefined
+// let newArray = myArray.find(function(e){return e>5})--> return first element satisfied condition , if mot found any element return -1
 // let newArray = MYArray.find(Number) --> [5,4,6,"8","amr","ahmed"] => 5 => return only first number
 // let newArray = myArray.find((el)=> el.includes("yes")) --> return fisr element contain "yes" 
 
