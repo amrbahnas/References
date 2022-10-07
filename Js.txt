@@ -38,6 +38,7 @@ Object.freeze(myArray) => disable array clone and edit
 //string(value)
 //value.tofixed(n) --> select how many number after sign
 //parseInt(value)
+//parsInt("55amr") => 55
 //parseFloat(value)
 //number(value)
 //Number.isInteger(value)
