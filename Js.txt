@@ -777,6 +777,7 @@ return e>= this.min && e<=this.max
 // x{5,} => x 5 to infi times
 // x$ => string end with x
 // x^ => string start with x
+// /^pattern$/ => for check ( string === pattern ) not ( include pattern )
 // ?=x => string follwed by x [amrx] => amr
 // ?!x => string not follwed by x
 // TXT.replaceAll(reg,"value")
