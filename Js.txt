@@ -760,6 +760,7 @@ return e>= this.min && e<=this.max
 // [A-Za-z] =>  any character from A to Z || a to z
 // [A-Za-z0-9] =>  any character from A to Z || a to z || 0 to 9
 // [^A-Za-z0-9] =>  get special character
+// [abc] => any character from a or b or c
 // \w => one char
 // \W => not char
 // \d => one digital 0-9
