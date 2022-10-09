@@ -38,6 +38,8 @@ Object.freeze(myArray) => disable array clone and edit
 //string(value)
 //value.tofixed(n) --> select how many number after sign
 //parseInt(value)
+//parseInt(value,baise)
+//parseInt("00011",2) => 3 (convert binary to decimal)
 //parsInt("55amr") => 55
 //parseFloat(value)
 //number(value)
