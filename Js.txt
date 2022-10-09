@@ -198,7 +198,7 @@ Object.freeze(myArray) => disable array clone and edit
 // let newNumberArray = myStringNumberArray.map(Number) --> ['2','3',"A"] => [2,3,NAN] => map convert string to number
 
 // let newArray = myArray.filter(function(e){return e>5})--> apply condition in each element of the array and return only satisfied element in new array
-// let NumberArray = MYArray.filter(Number) --> [5,4,6,"8","amr","ahmed"] => [5,4,6,'8'] => return only number
+// let NumberArray = MYArray.filter(Number.isInteger) --> [5,4,6,"8",0,"amr","ahmed"] => [5,4,6,'8',0] => return only number
 // let newArray = myArray.filter((el)=> el.includes("yes")) --> return all element contain "yes"
 
 // let newArray = myArray.find(function(e){return e>5})--> return first element satisfied condition , if mot found any element return undefined
