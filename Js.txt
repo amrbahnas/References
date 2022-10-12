@@ -44,6 +44,7 @@ Object.freeze(myArray) => disable array clone and edit
 //parseFloat(value)
 //number(value)
 //Number.isInteger(value)
+// integer number =>  ( number % 1 == 0 )
 //isNAN(value)
 
 //{math}
