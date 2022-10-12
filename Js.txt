@@ -53,6 +53,7 @@ Object.freeze(myArray) => disable array clone and edit
 //math.max(a,b,c,d)
 //math.min(a,b,c,d)
 //math.pow(2,4);
+//Math.sqrt(number)
 // Math.random()*9 --> random number from 0 to 8
 //math.trunc(value) --> ignore fractions part
 
