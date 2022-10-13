@@ -124,7 +124,8 @@ Object.freeze(myArray) => disable array clone and edit
 // End Ex /
 //let allArrays= arrayOne.concat(arrayTwo,arrayThree,[1,2,3],"A",...); --> merge Arrays to one array
 //myArray.join(separateSign); -->  return array as a String
-
+//math.max(...MyNumberArray)  => get max number at array
+//math.min(...MyNumberArray) => get min number at array
 
 // for (const property in object) {
 //     object[property];
