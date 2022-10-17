@@ -271,8 +271,26 @@ let mapNames = filterNames.map((el) => el.name === "karim" ? { ...el, name: "kar
 console.log(mapNames) => print last result
 
 */
+{{Object Shortcut}}
+Let name ="amr"
+let age =22
+let address ="zag"
+
+const info ={
+name:name,
+age:age,
+address:address
+}
+
+//=> if key == value we can write object like this
+const info ={
+name,
+age,
+address
+}
 
 */
+
 //{{Dom-selector}}
 // document.getElementById("");
 // document.getElementsByTagName("");
