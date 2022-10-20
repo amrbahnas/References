@@ -61,6 +61,9 @@ Object.freeze(myArray) => disable array clone and edit
 // {string method}
 //value[10] --> if not found return undefined
 //value.charAt(10) --> if not found return "" (empty string)
+//value.charCodeAt(indx) --> return UTF-16 Code of char 
+96 < [a-z] < 123   => lower Letter UTF-16 code ( to make sure value is letter not else )  
+64 < [A-Z] < 91    => upper Letter UTF-16 code 
 //value.length
 //value.trim() --> for remove  pre and pos white spaces from string
 //value.toUpperCase()
