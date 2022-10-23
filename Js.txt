@@ -219,7 +219,7 @@ Object.freeze(myArray) => disable array clone and edit
 // let newValue = myArray.reduce(function(start,next){return start+next})--> return value (result of return process),at first loop start is first array element and next is always the next element of start ,next loop start = oldStart proccess oldNext
 // let newValue = myArray.reduce(function(start,next){return start+next},5)--> if u want to use special start value at beginning ,in this case the next value will be the first element of the array
 //const findOdd = (xs) => xs.reduce((a, b) => a ^ b); => return first element duplicated odd time
-
+//const findStay = [1,1,1,1,2,1,1].reduce((a, b) => a ^ b); => return 2 (only diff element)
 // domObjects.forEach(function(ele){ele.style.. .}) --> for chat with each array elemet with same message
 */
 //{{object}}
