@@ -174,9 +174,10 @@ Object.freeze(myArray) => disable array clone and edit
 // }
 
 //function testArg (){
-// return arguments;
+// return arguments; => return object
+// return [...arguments] => if u want return as array
 // }
-// testArg(3,4) => 3,4
+// testArg(3,4) => {'0':3,'1':4}
 
 /* two way if user did`t enter parameter so it is default value*/
 //1- function test(user,age)
