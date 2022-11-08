@@ -86,6 +86,9 @@ Object.freeze(myArray) => disable array clone and edit
 //value.split("|") split element every |
 //value.split("|",n) add number of the split
 
+//string.replace(/[A-Z]/g, ' $1') =>  catch upper char and Replace it with space+char  ($1 represent catched char )
+//string.replace(/([a-z])([A-Z])/g, "$1 $2"); ($1 represent catched lower char ,$2 represent catched upper char  )
+
 // 5 > 4 ? console.log("yes") : console.log("no");
 
 // console.log(`my name is ${theName||"unknown"}`) --> if the variable = null or undefined or [false] replace it by "unknown"
