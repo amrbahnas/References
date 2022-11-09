@@ -908,7 +908,7 @@ console.log(myCartNames)
 */
 
 let myRequest = new XMLHttpRequest();
-myRequest.open("GET", "https://api.github.com/users/amrbahnas/repos");
+myRequest.open("GET", "https://api.github.com/users/amrbahnas/repos OR File.json");
 myRequest.send();
 console.log(myRequest);
 
