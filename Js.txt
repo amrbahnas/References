@@ -86,7 +86,7 @@ Object.freeze(myArray) => disable array clone and edit
 //value.split("|") split element every |
 //value.split("|",n) add number of the split
 
-//string.replace(/[A-Z]/g, ' $1') =>  catch upper char and Replace it with space+char  ($1 represent catched char ) , 1 is variable name
+//string.replace(/([A-Z])/g, ' $1') =>  catch upper char and Replace it with space+char  ($1 represent catched char ) , $1 cant change name, regular must be around ()
 //string.replace(/([a-z])([A-Z])/g, "$1 $2"); ($1 represent catched lower char ,$2 represent catched upper char  )
 
 // 5 > 4 ? console.log("yes") : console.log("no");
@@ -785,13 +785,14 @@ return e>= this.min && e<=this.max
 
 //{{Regular}} => /value/gi
 // > in value <
+// . => All Types
 // (x|y) => can be x or y
 // [0-9] => number from 0 to 9
 // [^0-9] => any character not  from 0 to 9
 // [^0-9] => any character not  from 0 to 9
 // [a-z] => any character from a to z
 // [^a-z] => not any character from a to z
-// replace(/[^a-z]/g, '') => remove all special char
+// (/[^a-z]/g, '') => remove all special char
 // [A-Z] =>  any character from A to Z
 // [A-Za-z] =>  any character from A to Z || a to z
 // [A-Za-z0-9] =>  any character from A to Z || a to z || 0 to 9
