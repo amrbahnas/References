@@ -819,7 +819,13 @@ return e>= this.min && e<=this.max
 // ?=x => string follwed by x [amrx] => amr
 // ?!x => string not follwed by x
 // TXT.replaceAll(reg,"value")
+// TXT.replace(reg,function(el))
 // TXT.replace(/\d/g ,d => d < 5 ? 0 : 1);
+/* Ex Replace every char by it three time
+    replace(/./g, function(char) {
+    return char.repeat(3)
+    })
+*/ 
 //srting.match(reg) => [...] ,if not found => return null
 /* EX For ignore null value 
 // function getCount(str) {
