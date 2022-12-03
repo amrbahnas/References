@@ -33,6 +33,11 @@ Object.freeze(myArray) => disable array clone and edit
 
 // (value || "save" ) => if value = null or undefined replace value to "save"
 
+// if([]) => true
+// if({}) => true
+Else empty value => false 
+// if("") => false
+
 //{numbers}
 //value.toString()
 //string(value)
