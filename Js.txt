@@ -920,8 +920,55 @@ console.log(myCartNames)
 
 
 /***********************************/
-{JSON}
+// create promis
+// const p = new Promise((resolve, reject) => {
+//   let num = 1 + 5;
+//   if (num === 6) {
+//     resolve("success");
+//   } else {
+//     reject("error");
+//   }
+// });
 
+
+// Run the promise
+// p.then((message) => {
+//   console.log(message);
+// })
+//   .catch((message) => {
+//     console.log(message);
+//   })
+//   .finally(() => {
+//     console.log("promis finally");
+//   });
+
+
+// create function return promis
+// const promisHandler =()=>{
+//   return new Promise((resolve, reject) => {
+//     let num = 1 + 5;
+//       if (num === 6) {
+//         resolve("success");
+//       } else {
+//         reject("error");
+//       }
+//   })
+// }
+
+// Run function return promise
+// promisHandler.then((message) => {
+//   console.log(message);
+// })
+//   .catch((message) => {
+//     console.log(message);
+//   })
+//   .finally(() => {
+//     console.log("promis finally");
+//   });
+
+
+/************************************
+{JSON}
 /*
   Ajax
   - Ready State => Status Of The Request
