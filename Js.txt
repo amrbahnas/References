@@ -487,6 +487,7 @@ document.addEventListener("click",function(e){
 //window.localStaorage.removeItem("key") =>remove saved value by his key
 //window.localStaorage.clear() => clear localStaorage
 //window.localStaorage.key(N) => get key name saved at index N
+//JSON.stringify-JSON.parse
 
 //{{Bom-windowSessionStorage(object)}} => saved data only if page reloaded ,if tap close or window data will remove
 //window.sessionStorage.setItem("key","value") => set new value by function
