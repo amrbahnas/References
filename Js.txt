@@ -997,3 +997,23 @@ myRequest.onreadystatechange = function () {
     console.log(jsData);
   }
 };
+
+/**************************************************/
+{close the menu when click outside}
+// target cart element
+  const menu = useRef();
+  
+  useEffect(() => {
+    const handler = (e) => {
+      //if the element which clicked not in the menu then
+      if (!menu.current.contains(e.target)) {
+        // call back function, change state to false , because the state at the parrent component
+        closeMenu();
+      }
+    }; 
+    document.addEventListener("mousedown", handler);
+    // cleanup event listeners
+    return () =>{
+      document.removeEventListener("mousedown", handler);
+    }
+  });
