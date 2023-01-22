@@ -1,0 +1,12 @@
+  
+  // using children props as component using react.cloneElement
+  const app = ({children})=>{
+  const sliderElements = data?.map((item) => (
+    <SwiperSlide key={item.id} className={styles.swiperSlide}>
+      {React.cloneElement(children, { item, key: item.id })}
+    </SwiperSlide>
+  ));
+  
+  }
+  
+  
