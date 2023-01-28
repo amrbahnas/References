@@ -10,3 +10,36 @@
   }
   
   
+/*******************************************/
+close menu when click outside
+
+//1- declare state with initial value (fasle)
+  const [loginMenuControl, setLoginMenuControl] = useState(false);
+  
+//2- use use ref to target the menu
+  const loginMenu = useRef();
+  
+//3- useEffect run after click mosue event  
+  useEffect(() => {
+    const handler = (e) => {
+      //if the element which clicked not in the menu then
+      if (!loginMenu.current.contains(e.target)) {
+        setLoginMenuControl(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    // cleanup event listeners
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  });
+  
+  at return Dom
+  return ({
+    loginMenuControl&&
+    <div>menu</div>
+  })
+  
+  
+  /********************************************************************
+  
