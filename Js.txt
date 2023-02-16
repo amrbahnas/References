@@ -676,6 +676,10 @@ const senoir = user.filter( ({name,age}) => { age > 19 }; => [{name:"amr",age:20
 let myData= [1,1,1,2,1,3];
 let myUnique = new Set(myData) => return new object without array doublicate element
 console.log(myUnique) => {1,2,3}
+// also can used for string 
+let myData= "aaaaaab";
+let myUniqueString = new Set(myData) => return new object without string doublicate element
+console.log(myUniqueString) => {'a','b'}
 -> Methodes <-
 myUnique.add(4) => {1,2,3,4}
 myUnique.delete(4) => {1,2,3}
