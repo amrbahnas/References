@@ -1,0 +1,357 @@
+1- div ==> View ,with display:flex ,direction:column
+
+2- any text ==> Text
+
+3- Text inharite style from only Text component
+
+4- <button onclick={} >save</button> ==> <Button title="save" onPress={} />
+
+5- Button component cant style it , u have to rap it in View component and style the View
+
+6- <input type="text" onChane={(e) => set(e.target.value)} />  ==>
+   <TextInput onChangeText={(val) => set(val)}  keyboardType="numeric"  keyboardType="email-address" secureTextEntry={true} editabl multiline numberOfLines={4}maxLength={40} />
+
+7- if we have list of items need to scrolling u have wrap the list between <ScrollView> component
+
+
+8- You can use map to render array of object like React but you also have a component for this 
+  <FlatList
+  numColumn={1}
+  keyExtractor = {(item)=>item.id}
+  data={items}
+  renderItem = {({item})=>(
+   <Text>{item.name} </Text>
+    )
+  />
+
+ a- flatlist didnt need key for rendring ,if you have you can use keyExtractor attr
+ b- flatlist doent rendring all items it just visiable items
+ c- flatlist doesnt need scrollView component for scrolling it do it by self
+
+9- if you have element expected button and  need onpress event , you wrap element between <TouchableOpacity>
+<TouchableOpacity onPress={} > 
+ <Text>
+  click me
+ </Text>
+</TouchableOpacity>
+
+10- to show popup message with button like window.alert => we use Alert
+ Alert.alert("msg title","msg description",[
+	{text:"ok",onPress:()=>{}}
+	{text:"cancel",onPress:()=>{}}
+]) 
+
+object at array represen button
+
+11- we need to close keyboard when click outside ,so we need componet <TouchableWithoutFeedback> that give us onPress event when toush the screen
+  to use we wrap the main component (app.js) inside it
+ and import keyboard and use her fuction dismiss() to close it
+
+  <TouchableWithoutFeedback onPress={()=>keyboard.dismiss()}>
+	<View>iam app screen</View>
+  <TouchableWithoutFeedback>
+
+ 12- use icon 
+   expo has list of icon like matrial ui 
+   an single icon has (container name ,name) u can get from docs
+   to use icon 
+   import {MatrialIcons} from '@expo/vector-icons'  ,here matrialIcons represent => container name
+   now use the icon :
+   <MatrialIcons name="delete" size={2} color="red" >
+
+  13- while application opening we can use <Apploading> component to do some thing
+      <Apploading 
+      startAsync={do some thing and return value when finish} 
+      onFinish={setloading(false)} >
+
+/*******************************/
+  14- {use custom font}    
+     *first go to google fonts and download font files 
+     * Here is the the app component shoud be
+
+      import react,{usestate} from 'react'
+      import * as Font from 'expo-font'
+      import Home from './screens/home'
+      import {Apploading} from 'expo'
+
+      const getFonts = ()=> Font.loadAsync({
+        'font-regular':require('./font-regular'),
+        'font-bold':require('./font-bold')
+      })
+
+      export default function App(){
+        const [fontLoaded,setfontLoaded] = usestate(false)
+        if(fontLoad){
+          return (
+            <Home/>
+          )
+        }else {
+          return (
+            <AppLoading
+            startAsync={getFonts}
+            onFinish={()=>setfontLoaded(true)}
+            />
+          )
+        }
+      } 
+
+      //* now you can use the font at any page
+
+      <Text style={{fontFamil:"font-regular"}} >hello world </Text>
+
+
+
+/*****************************
+
+15 - {routing}
+
+npm install @react-navigation/native
+npx expo install react-native-screens react-native-safe-area-context
+npm i react-navigation-stack
+
+- routes file :
+---------------------------------------
+import { createStackNavigator } from "react-navigation-stack";
+import { createAppContainer } from "react-navigation";
+import Login from "../screens/Login";
+import Signup from "../screens/Signup";
+
+const screens = {
+  Login: {
+    screen: Login,
+  },
+  Signup: {
+    // special customization navBar
+    screen: Signup,
+     navigationOptions: {
+      title: 'Review Details',
+      headerStyle: { backgroundColor: '#eee' }
+    }
+  },
+  home: {
+    // display componet at navBar
+    screen: home,
+     headerTitle: () => <Header />
+  },
+  about: {
+    // for pass navigation to componet at navBar
+    screen: about,
+     navigationOptions: ({ navigation }) => {
+      return {
+        headerTitle: () => <Header navigation={navigation} />
+      }
+    },
+  },
+};
+
+
+// home stack navigator screens
+const HomeStack = createStackNavigator(screens, {
+    // defualt customization apply on all navBar
+  defaultNavigationOptions: {
+    headerTintColor: '#444', //text color
+    headerStyle: { backgroundColor: '#eee', height: 60 }
+  }
+});
+
+export default createAppContainer(HomeStack);
+
+----------------------------
+
+- use routes at app :
+------------------------------
+  import { StyleSheet } from "react-native";
+import Navigater from "./routes/homeStack";
+
+export default function App() {
+  return <Navigater />;
+}
+
+-------------------------------------------
+
+- page get props called navitagtion can  use for navigation
+-------------------------------
+export default function Login ({navigation}){
+
+  const passedData = navigation.params() // get passed  object when navigated
+  const passedData = navigation.params("title") // get speciefic key from object passed 
+
+ const onclick =()=>{
+  navigation.navigate("Signup",passedData[op] as object)  //go to page , with pass data to the page
+  navigation.push("Signup",passedData[op] as object)  //the same 
+  navigation.goBack()  //go Back -1
+ }
+}
+------------------------------
+
+/******************************/
+
+16- { Drawer Navigation} show left menu when click burger icon
+ * npm install react-navigation-drawer
+
+ - route file is the collection of pages that you can navigate between as we make at step 15
+ - at Drawer navigate we navigate between this route files
+ 
+  so if we need to make draw navigate between two route files
+ - fist we need  route files for router1,router2 that present pages
+ - also we need third route file that for Drawer Navigater and import section1,section2 files in it   
+ - at the end we import Drawer navigater file at App.js to rendering it
+ - so for open menu u can swip or but icon at navbar to open menu onpress
+ - as we know you can pass component to navbar with navigation as a props
+   you can use navigation.openDrawer() to open the menu
+-----------------------------------------
+
+  header componet to pass to navbar :
+    *************************
+   import { StyleSheet, Text, View} from 'react-native';
+   import { MaterialIcons } from '@expo/vector-icons';
+
+   export default function Header({ title, navigation }) {
+
+    const openMenu = () => {
+      navigation.openDrawer();
+    }
+
+    return (
+      <View style={styles.header}>
+        <MaterialIcons name='menu' size={28} onPress={openMenu} style={styles.icon} />
+        <View>
+          <Text style={styles.headerText}>{title}</Text>
+        </View>
+      </View>
+    );
+  }
+    *************************
+  
+
+  route1 file 
+    ********************
+    const screens = {
+    Login: {
+      screen: Login,
+       navigationOptions: ({ navigation }) => {
+      return {
+        headerTitle: () => <Header title='route1' navigation={navigation} />
+      }
+    },
+    },
+    Signup: {
+      screen: Signup,
+    },
+  };
+
+  const route1 = createStackNavigator(screens)
+
+  export default route1;
+
+  ************************* 
+
+  route2 file 
+    ****************
+    const screens = {
+    home: {
+      screen: home,
+       navigationOptions: ({ navigation }) => {
+      return {
+        headerTitle: () => <Header title='route2' navigation={navigation} />
+      }
+    },
+    },
+    payment: {
+      screen: payment,
+    },
+  };
+
+  const route2 = createStackNavigator(screens)
+
+  export default route2;
+  **********************
+
+  draw file : 
+  ********************
+  import { createDrawerNavigator } from 'react-navigation-drawer';
+  import { createAppContainer } from 'react-navigation';
+  import route1 from './route1';
+  import route2 from './route2';
+
+  const RootDrawerNavigator = createDrawerNavigator({
+    section1: {
+      screen: route1,
+    },
+    section2: {
+      screen: route2,
+    },
+  });
+
+  export default createAppContainer(RootDrawerNavigator);
+  ************************
+
+  app.js 
+    **************************
+    import Navigator from './drawer';
+    .
+    .
+    .
+    return (
+        <Navigator />
+      );
+    **********************
+
+  ----------------------------------------
+
+
+  17- img =>  <Image source={require("path")}/>
+
+  const images = {
+  ratings: {
+    '1': require('../assets/rating-1.png'),
+    '2': require('../assets/rating-2.png'),
+  }
+};
+
+ <Image source={images.rating["1"]}/>
+
+
+
+ 18- backgroundImages => we use componet ImageBackground  and wrap in it all elements
+
+ import {ImageBackground } from 'react-native';
+ return (
+    <ImageBackground source={require('../assets/game_bg.png')} style={styles.header}>   
+      <View style={styles.headerTitle}>      
+        <Text style={styles.headerText}>{title}</Text>
+      </View>
+    </ImageBackground>
+  );
+
+
+  19- layout page || Window => we use component Modal 
+    - control open, close throw visible attr
+
+      import { Modal } from 'react-native';
+       const [modalOpen, setModalOpen] = useState(false);
+
+      <Modal visible={modalOpen} animationType='slide'>
+        <View>
+          <MaterialIcons onPress={() => setModalOpen(false)} />
+          <Text>Hello from the modal </Text>
+        </View>
+      </Modal>
+
+  
+
+  /***************************************************/
+  20-Deploy
+
+  export apk file :
+  
+   - expo login
+   - eas build -p android --profile preview
+  
+
+  export online link has qrCode can oren from expo application at google play :
+  
+   - npm i -g expo-cli
+   - expo publish   
+  
+
