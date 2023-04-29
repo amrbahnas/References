@@ -1,0 +1,298 @@
+/******************** */
+//  const enum Size1 {a,b,c}
+// // default a =0 , b=1 ,c=2 .....
+//  const enum Size2 {x=5,y,z}
+// // default a =5 , y=6 ,z=7 .....
+//  const enum Size3 {String1="a",String2="b",String3="c"}
+// // IF VALUE = STRING YOU HAVE WWRITE ALL VALUES
+// let mySize:Size1 = Size1.b
+// console.log(mySize);   /** => 1 */
+/************************ */
+// * function take number type and return number type
+// function returnNumber (val:number):number {
+//     return 0
+// }
+
+// * function  return void type meaning doesnt return any thing 
+// function returnVoid ():void {
+//     console.log("hello");   
+// }
+// * as default js function return undefined value so this will make error cause expected number return 
+// function returnUndefined (val:number):number {
+//     // undefined
+// }
+/************************ */
+/* type aliases ******************************/
+/* for write custom type like (object format ) and reuse it at multi times */
+type Employee = {
+    readonly id: number,
+    name: string,
+    retire: (data: Date) => void
+}
+// object with use Employee format
+let employee: Employee = {
+    id: 1,
+    name: "amr",
+    retire: (data: Date) => {
+        console.log(data);
+    }
+}
+
+/******************************************* */
+
+// union types
+//* function parameter maybe number or string
+const kgToLbs = (weigth: number | string) => {
+
+    if (typeof weigth === "number")
+        return weigth * 2.2
+    else
+        return parseInt(weigth) * 2.2
+}
+
+/**************************************** */
+
+/******* intersection type ************** */
+//* use mixed custom type
+
+type Id = {
+    id: number
+}
+
+type Name = {
+    name: string
+}
+
+type Mixed = Id & Name
+
+const user: Mixed = {
+    id: 1,
+    name: "amr"
+}
+
+/******************************* */
+
+/******************* litera typel */
+
+/* for set only allowed values can varaible carry */
+
+// let age: 20 | 30 = 10; /* => error age accept ony 20 or 30*/
+
+// type Metric = 'cm' | 'inch';
+// let length: Metric = 'km' /* error= > value must be cm or inch*/
+
+
+
+/***************** nullable type*****************/
+/* typescript block null or undefined value  */
+/* we cant pass null or undefined caues touppercate doesnt work with this value type  */
+// function toUpperString(name: string) {
+//     console.log(name.toUpperCase());
+// }
+// toUpperString(null) /* error*/
+
+// /* type-script can accept null or undefine if u defined this type at the parameter  */
+// function toUpperStringCheck(name: string | null) {
+//     if (name)
+//         console.log(name.toUpperCase());
+//     else
+//         console.log("itis null value");
+// }
+
+// toUpperStringCheck(null)
+
+
+/******************************************** */
+/* if vaviable type is func the use any */
+// const func: any = () => {
+//     console.log("hello");
+// }
+
+
+/******************************************** */
+
+let speed: number | null = null;
+
+const ride = {
+    /** if speed value is (null,undefined,"",0,false) then use 30 , method called Falsey  */
+    speed: speed || 30,
+    /** if speed value is (null,undefined) then use 30 , we use this method (Nullish) cause speed can be 0  */
+    speed2: speed ?? 30,
+}
+
+/******************************************* */
+/** if you need to change the return type, we add <retun-type>  */
+/* in this case the return type is HtmlElement(that has`t .value ) ,but we target HtmlInputElement (that has .value) , so we have to change the return type */
+let phone = <HTMLInputElement>document.getElementById('phoneInput');
+
+phone.value
+
+/***************************************/
+/*** any vs unknown ***/
+/* if we use any ,typescript can`t check the type of value used at document */
+// so if document not have move() function ,the app will crash
+function render(document: any) {
+    document.move()
+    document.play()
+    document.song()
+}
+/* if we use unknown , u have to tell ts what is the type of document so ts can check it */
+function render2(document: unknown) {
+    if (typeof document === 'string') {
+        document.toLocaleLowerCase()
+    }
+    // document.play()
+    // document.song()
+}
+
+/**************************************** */
+
+// * never
+//  if the function will be at infinity loop or  throw an error ,the code below will never execute  
+// so, to know that this line is never executed we use (never) as a return type , at this moment TS will throw an info at this line
+// function hello(): never {
+//     while (true) {
+//         // console.log
+//     }
+//     throw new Error("message");  /** will never execute */
+// }
+
+// hello()
+// console.log(hello); /** will never execute */
+
+
+/******************** OOP ********************* */
+//* create a new class
+//* readonly : can`t update
+//* private : can only access within a class ,can`t inherate from child classes
+//* protected : can only access within a class, can inherate from child classes
+// so if you want to call it out side the class you have to make a method that return this value
+// static : variable shared with all class objects , and only the class can access it and not the object (ex: classname.staticValue)
+class Account {
+    //* this section is extra for typescript 
+    readonly id: number;
+    owner: string;
+    private balance: number;
+    private static clientNumber: number;  // private:can only access within a class , static: variable only the class can access it
+    nickName?: string // by add ? this mean optional 
+    // ---------------//
+    constructor(id: number, owner: string, balance: number) {
+        this.id = id;
+        this.owner = owner;
+        this.balance = balance;
+    }
+
+    // *$best$* we can minimize the constructor body and also the extra of typescript by adding (public) before each constructor parameter
+    // constructor(
+    //     public readonly id: number,
+    //     public owner: string,
+    //     public balance: number) {
+    // }
+
+    deposit(amound: number) {
+        if (amound <= 0)
+            throw new Error("invalid amound")
+        this.balance += amound
+        this.calcTax()
+    }
+    getbalance() { // method used to return the value of the private balance
+        return this.balance
+    }
+
+    // another way to get the balance ,so for get balance just call object._balance
+    get _balance(): number {
+        return this.balance
+    }
+
+    // new way for make a set function for set the private varaiables ,just call object._balance(15)
+    set _balance(num: number) {
+        if (num <= 0)
+            throw new Error("invalid")
+        this.balance = num
+    }
+
+    private calcTax() { // methos can access within class only
+        this.balance += 5;
+    }
+
+    // get private static variable
+    static get _clientNum() {
+        return Account.clientNumber;  // here we access the variable by calling the class name not this (refere to the object) ,cause only class can access this variable
+    }
+    // update static variable
+    increaseClient() {
+        Account.clientNumber++;  // here we access the variable by calling the class name not this (refere to the object) ,cause only class can access this variable
+    }
+
+}
+
+
+// * create a new object from the class and use his variables and methods 
+let customer = new Account(12, "amr", 0)
+
+customer.deposit(150)  /* add 150 to customer balane */
+
+console.log(customer.getbalance()); /* now balance = 150 + 0  */
+
+console.log(customer._balance); /* another way : balance = 150 + 0 */
+
+customer._balance = 20 /* set balance = 20 ,this is the way to set private variable  */
+
+// * if you need to check that this object is from custom class we use instance
+if (customer instanceof Account) {
+    console.log("yes");
+}
+
+/********** fast way for  create class with out constructor ********** */
+class fast {
+    number: number = 0;
+    increment() {
+        this.number += 1;
+    }
+}
+/***************************************** */
+
+/******************** Index signature ********************* */
+//* at typesScript you can`t assign a new key to the object like js ,cause TS wasnt know key-type must be for checking process
+let names = {}
+// names.a1 = "amr"  // get an error
+
+//* to do this  at typesScript you have to create a new class that take array of type u selected  ,then create your  object from this class 
+class SeatsName {
+    //  Index signature
+    [SeatsName: string]: string
+}
+
+let seats = new SeatsName();
+// asign new keys
+seats.a1 = "amr"
+seats.a2 = "ahmed"
+seats.a3 = "mahmoud"
+
+
+
+
+/********************* inheretanze****************************** */
+
+class Persone {
+    constructor(public firstName: string, public lastName: string) { }
+    walk() {
+        console.log("walking");
+    }
+}
+
+//  * using extends to inherate all variables and methods from mention class
+//  * you have to rewrite the parent class variable and passing it to super function
+class Student extends Persone {
+    constructor(public studentId: string, public studentClass: number, firstName: string, lastName: string) {
+        super(firstName, lastName)
+    }
+
+    exam() {
+        console.log("examing");
+    }
+}
+
+const student1 = new Student("id", 5, "amr", "ahmed")
+
+/***********************************************************************/ 
