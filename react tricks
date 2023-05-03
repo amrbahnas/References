@@ -42,4 +42,29 @@ close menu when click outside
   
   
   /********************************************************************
+    import axios, { CanceledError } from "axios";
+
+  useEffect(() => {
+    const Controller = new AbortController();
+
+    axios
+      .get("https://jsonplaceholder.typicode.com/todos/1", {
+        signal: Controller.signal,
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        if (error instanceof CanceledError) {
+          console.log("Request canceled");
+        } else {
+          console.log(error);
+        }
+      });
+
+    return () => {
+      Controller.abort();
+    };
+    
+  }, []);
   
