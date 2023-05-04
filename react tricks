@@ -68,3 +68,15 @@ close menu when click outside
     
   }, []);
   
+  
+  /**********************************************************************/
+  at api-client file
+  
+  export default axios.create({
+  baseURL:"https://example.com"
+  }) 
+  
+  at fetch file
+  import apiClient from './api-client'
+  apiClient.get("/users")
+  
