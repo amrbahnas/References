@@ -70,13 +70,96 @@ close menu when click outside
   
   
   /**********************************************************************/
-  at api-client file
-  
+  make url domain at separate file
+  shortcut for enhacne the code 
+  -at api-client file
   export default axios.create({
   baseURL:"https://example.com"
   }) 
   
-  at fetch file
+  -at fetch file
   import apiClient from './api-client'
   apiClient.get("/users")
   
+  /****************************************************************************/
+  for hidden any http request from the component ,we can declare a class with the functions that fetch the req method that use the prevous enhance and return a promise, so we can import this class at any component
+  
+  - at api-client file
+  ---------------------
+  export default axios.create({
+  baseURL:"https://example.com"
+  }) 
+  --------------------
+  - user service file
+  -----------------------------
+  import apiClient from './api-client.js'
+  
+  interface User {
+  id:number;
+  name:string
+  }
+  
+  class UserServices {
+ 
+     getAllUsers() {
+       const controller = new AbortController()
+      const request = apiClient.get<User[]>("/users",{
+       signal:controller.signal
+       });
+       return {request, cancel: ()=> controller.abort()}
+    }
+ 
+    deleteUser (id:number) {
+       return apiClient.delete("/users/"+id)
+   }
+    
+    createUser (user:User){
+       return apiClient.post("/users",user )
+   } 
+   
+    updateUser (user:User) {
+     return apiClient.patch("/users/"+user.id,user )
+    }
+ 
+  }
+  
+  export default new UserServices()
+  
+  ----------------------------
+  - app component (use the prev build class)
+  ----------------------------
+  import userService from './userService.js';
+  
+  // use getAllUsers Func
+    useEffect(()=>{
+      const {request, cancel} = userService.getAllUsers();
+      request
+        .then((res)=>{
+        setUsers(res.data)
+        }).catch((err)=>console.log(err))
+       retrurn () => cancel()
+    },[])
+  
+  // delete func with perfect way, delete user form ui first the from backend , we can use this aprotch with add,update funcs also
+   const deleteUser =(id:number)=>{
+     //u can save current ui user first
+       const currentUser = [...users]
+     //then delete user form ui
+       setUsers(users.filter(user=>user.id !== id))
+     //call the request
+       userService.deleteUser().then().catch(
+       (err)=>{ 
+     // if error, u can return the  users UI agian
+       setUsers(currentUser)
+        })      
+    }
+  
+   // update func
+   const updateUser =(user:User)=>{
+       userService.updateUser(user).then().catch()      
+    }
+         
+   // update func
+   const createUser =(user:User)=>{
+       userService.createUser(user).then().catch()      
+    }
