@@ -129,6 +129,11 @@ Else empty value => false
 //myArray.sort(); --> for sort array element alphabetic 1 2 20 30 4 50 9
 //myArray.sort((a,b)=>a-b); --> for Progressive sort
 //myArray.sort((a,b)=>b-a); --> for descending sort
+// ex: sort array based on the number inside the element
+// ["you3","are2","how1"] => ["how1","are2","you3"]
+//words.sort(function(a, b){
+    return a.match(/\d/) - b.match(/\d/);  --> sort elements throw the inside number
+  });
 //myArray.reverse(); --> reverse array element
 //myArray.slice(start,stop[op]) --> take slice of elements from array ,return as new array
 //myArray.splice(start,#delete[0 for no delete],newElement) -->  we can select elementCount from start index to delete from the array ,also u can add newElement at start [index u want]
