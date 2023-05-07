@@ -76,7 +76,10 @@ Else empty value => false
 //value.indexOf("string") ---> if not found return -1
 //value.indexOf("string", N) ---> Start search from index N
 //value.lastIndexOf("string") --> start search from end
-//value.search("string")
+//value.search("string" || reg) --> return index
+// ex : "amr4".search(/[0-4]/g)  ==> 3  
+//value.match("string" || reg) --> return array of matched 
+//"0amr3".match(/[0-9/g) ==> ["0","3"]
 //value.slice(start)
 //value.slice(start,stop)
 //value.substring(start,stop) like slice with two diff [ if start > stop  exchange it automatic ] [ if input index is negative --> replace it to zero ]
