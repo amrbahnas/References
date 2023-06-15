@@ -1,0 +1,29 @@
+import { React , createContext , useState, useContext} from 'react'
+
+const AuthContext = createContext(null) 
+
+export const contextProvider = ({children}) => {
+
+    const [user , setUser] = useState(null)
+
+    const login = (user)=>{
+        setUser(user)
+    }
+    const logout = ()=>{
+        setUser(null)
+    }
+
+  return (
+        <AuthContext.Provider value={{user , login , logout}}>
+            {children}
+        </AuthContext.Provider>
+  )
+}
+export const useGlobalData = ()=>{
+    return useContext(AuthContext)
+} 
+
+// provide you application with contextProvider
+// import useGlobalData to access [user, login, logout]
+// ex: userInfo = useGlobalData.user
+
