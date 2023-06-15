@@ -163,3 +163,10 @@ close menu when click outside
    const createUser =(user:User)=>{
        userService.createUser(user).then().catch()      
     }
+    
+    
+    
+    /****************** react query ******
+    
+    npm i @tansyack/react-query@4.28
+
