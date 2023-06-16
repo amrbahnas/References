@@ -52,6 +52,10 @@ Else empty value => false
 // integer number =>  ( number % 1 == 0 )
 //isNAN(value)
 
+const price = 12345.67;
+const formattedPrice = price.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+console.log(formattedPrice); // Output: $12,345.67
+
 //{math}
 //math.round(value)
 //math.ceil(value)
