@@ -1,0 +1,19 @@
+import React, { lazy, Suspense } from 'react';
+
+const Home = lazy(() => import('./Home'));
+const Contact = lazy(() => import('./Contact'));
+
+const App = () => {
+  return (
+    <div>
+      <h1>تطبيق React الخاص بي</h1>
+
+      <Suspense fallback={<div>جارٍ التحميل...</div>}>
+        <Home />
+        <Contact />
+      </Suspense>
+    </div>
+  );
+};
+
+export default App;
