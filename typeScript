@@ -1,3 +1,6 @@
+const { slug } = useParams<{ slug: string }>();
+const { data: game, isLoading, error } = useGame(slug!);
+// put ! after slug => tell typescript that slug never be null
 /******************** */
 //  const enum Size1 {a,b,c}
 // // default a =0 , b=1 ,c=2 .....
