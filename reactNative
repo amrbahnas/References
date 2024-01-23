@@ -1,3 +1,5 @@
+note : View takes the area of thier content
+     : scrollView takes all available space on screen
 1- div ==> View ,with display:flex ,direction:column
 
 2- any text ==> Text
