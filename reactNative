@@ -422,4 +422,45 @@ you can install by :  expo install react-native-fast-image expo-dev-client
 alternative https://github.com/wcandillon/react-native-expo-image-cache
 install by: npm i react-native-expo-image-cache  and  expo install expo-blur
 
+/***********************************************************
+we can use import * as SecureStore from "expo-secure-store";
+to store important data like token
+
+/***************************************************************
+AppLoading VS useEffect
+
+//AppLoading for control the splash screen ,=> splash screen hidden after startAsync func finish ,it`s for optimal experience.
+// expo-app-loading tells expo-splash-screen to keep the splash screen visible while the AppLoading component is mounted
+// This is useful to download and cache fonts, logos, icon images and other assets that you want to be sure the user has on their device for an optimal experience.
+import AppLoading from "expo-app-loading";
+
+export default function App() {
+  const [user, setUser] = useState();
+  const [isReady, setIsReady] = useState(false);
+
+  const restoreUser = async () => {
+    const token = await authStorage.getToken();
+    if (token) setUser(jwtDecode(token));
+  };
+
+  // useEffect will execute after the  splash screen , we need restoreUser function done before app open (splash screen hidden)
+  // so we can use AppLoading to control splash screen for hidden after restoreUser function done
+  // useEffect(() => {
+  //   restoreUser();
+  // }, []);
+
+  // isReady mean app is ready to use
+  if (!isReady) {
+    return (
+      <AppLoading
+        startAsync={restoreUser}
+        onFinish={() => setIsReady(true)}
+        onError={console.warn}
+      />
+    );
+  }
+
+return (<Text>  hello app  </Text>)
+}
+
 
