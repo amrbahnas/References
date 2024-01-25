@@ -414,5 +414,12 @@ const styles = StyleSheet.create({
   },
 });
 
+/******************************************************/
+for caching images at cashing for offline support or get high performance 
+we use https://github.com/DylanVann/react-native-fast-image (not supported yet at expo)
+you can install by :  expo install react-native-fast-image expo-dev-client
+
+alternative https://github.com/wcandillon/react-native-expo-image-cache
+install by: npm i react-native-expo-image-cache  and  expo install expo-blur
 
 
