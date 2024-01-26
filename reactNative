@@ -355,7 +355,9 @@ export default function Login ({navigation}){
   
    - npm i -g expo-cli
    - expo publish   
-  
+
+   for stading puplish
+   expo publish --release-channel staging
 
 /**************************************************/
 make custome snippet for new screen app with first litter of component capitalize always
