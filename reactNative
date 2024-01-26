@@ -343,7 +343,7 @@ export default function Login ({navigation}){
   
 
   /***************************************************/
-  20-Deploy
+  20-Deploy for dev or testing mode
 
   export apk file :
   
