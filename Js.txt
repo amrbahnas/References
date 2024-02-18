@@ -153,13 +153,18 @@ console.log(formattedPrice); // Output: $12,345.67
 //math.max(...MyNumberArray)  => get max number at array
 //math.min(...MyNumberArray) => get min number at array
 
-// for (const property in object) {
-//     object[property];
+// for ( key in object) {  => here key represent the object key
+//     object[key];
 // }
 
-// for (const property of object) {
-//     property;
+// for ( index in array) {  => here index represent the array element index
+//     array[index];
 // }
+
+// for ( value of array) { => value of each value at the array
+//     value;
+// }
+
 
 // for(const i = 0 ;i<Array.length; i++){
 //     if(condition){
