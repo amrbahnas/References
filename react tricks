@@ -1,4 +1,15 @@
-  
+
+
+/// get component props type 
+
+
+const AppTextInput = ({
+  ...props
+}: React.ComponentProps<typeof TextInput>) => {}
+
+
+
+
   // using children props as component using react.cloneElement
   const app = ({children})=>{
   const sliderElements = data?.map((item) => (
