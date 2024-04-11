@@ -1,0 +1,6 @@
+1- install node.js
+2- npm i --global yarn 
+3- at power shell opened as administrator  run command => "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser"
+4- done know yarn is working 
+
+
