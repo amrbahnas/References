@@ -1,4 +1,4 @@
-// a ??b => if a is not null or undefined (ex: a=0 ) return a else return b , ?? is called nullish coalescing operator
+// a??b => if a is not null or undefined (ex: a=0 ) return a else return b , ?? is called nullish coalescing operator
 
 
 var problems :
