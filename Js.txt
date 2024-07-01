@@ -1,3 +1,6 @@
+// a ??b => if a is not null or undefined (ex: a=0 ) return a else return b , ?? is called nullish coalescing operator
+
+
 var problems :
 1- not respect block scope [for-loop ,if ,while...]
 if you declare varaible with var in block scope => this varaible will be global => you can access it outside the block scope 
