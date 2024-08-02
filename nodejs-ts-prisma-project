@@ -1,1 +1,5 @@
 npm init -y; npm install typescript ts-node nodemon @types/node @types/express prisma @prisma/client express @types/express; npx tsc --init; npx prisma init --datasource-provider postgresql
+
+
+---work with auth ---
+npm i cookie-parser bcryptjs jsonwebtoken
