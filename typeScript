@@ -1,11 +1,16 @@
-// local interface
-// interface UserRequest extends Request {
-//     user: {
-//         id: string;
-//     };
-// }
 
-//global interface
+// create global interface (Amr) you can use it at all prroject
+declare global {
+  interface Amr {
+    software: true;
+  }
+}
+
+
+//** adding prop (use) to Request interface**
+import { Request } from "express";
+
+//global interface 
 declare global {
   namespace Express {
     interface Request {
@@ -15,6 +20,14 @@ declare global {
     }
   }
 }
+
+// local interface
+   interface UserRequest extends Request {
+    user: {
+        id: string;
+     };
+   }
+
 
 
 
