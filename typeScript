@@ -1,3 +1,23 @@
+// local interface
+// interface UserRequest extends Request {
+//     user: {
+//         id: string;
+//     };
+// }
+
+//global interface
+declare global {
+  namespace Express {
+    interface Request {
+      user: {
+        id: string;
+      };
+    }
+  }
+}
+
+
+
 const { slug } = useParams<{ slug: string }>();
 const { data: game, isLoading, error } = useGame(slug!);
 // put ! after slug => tell typescript that slug never be null
