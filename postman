@@ -1,0 +1,1 @@
+pm.environment.set("JWT",pm.response.json().message.token)
