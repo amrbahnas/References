@@ -1,0 +1,5 @@
+at setting jon file 
+{
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.pinnedTabsOnSeparateRow": true,
+}
