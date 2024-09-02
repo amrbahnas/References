@@ -1,0 +1,38 @@
+# "docker deployment"
+
+# enter Ec2 instance (cloud server) > ssh -i ./EC2Messenger.pem ubuntu@13.48.135.48
+# install docker , docker-compose =>https://support.netfoundry.io/hc/en-us/articles/360057865692-Installing-Docker-and-docker-compose-for-Ubuntu-20-04
+# exit and re-enter the instance =>to apply the changes (docker group)
+# clone app repo => you man need generate personal access token from github to clone private repo
+# create .env file and add the env variables (touch .env) => nano .env
+# docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+# know access the app from the browser using the public ip of the instance "http://13.48.135.48/"
+
+# github credentials
+# amrbahnas
+# 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 => personal access token
+
+
+# "push Images to DockerHub (make docker Image from chat app)"
+# -1 => create docker repo in docker hub (elbahnsawy/messenger)
+# -2 => use image: "elbahnsawy/messenger" at node-app service
+# -3 => docker-compose -f docker-compose.yml -f docker-compose.prod.yml build
+# -4 => login to docker hub => docker login
+# -5 => docker-compose -f docker-compose.yml -f docker-compose.prod.yml push node-app
+# at instance =>
+# 1- git pull
+# 2- docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull
+# 3- docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+# after changing the code
+# -1 => docker-compose -f docker-compose.yml -f docker-compose.prod.yml build
+# -2 => docker-compose -f docker-compose.yml -f docker-compose.prod.yml push node-app
+# at instance =>
+# 1- git pull
+# 2- docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull
+# 3- docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+
+
+# scaling the app
+# -1 => docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --scale node-app=3
