@@ -1,0 +1,72 @@
+version: "3.9"
+services:
+  node-app:
+    # container_name: chat-app-container
+    image: elbahnsawy/messenger
+    # ports:
+    #   - "5000:5000" 
+    env_file:
+      - .env  
+    depends_on:
+      - postgres
+      - redis  
+  postgres:
+    image: postgres
+    restart: always
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    # or set shared memory limit when deploy via swarm stack
+    #volumes:
+    #  - type: tmpfs
+    #    target: /dev/shm
+    #    tmpfs:
+    #      size: 134217728 # 128*2^20 bytes = 128Mb
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: example
+
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080 
+  #   depends_on:
+  #     - postgres      
+  redis:
+    container_name: redis-container
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - node-app
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      WATCHTOWER_POLL_INTERVAL: "30"
+      WATCHTOWER_TRACE: "true"
+    command: chat-app-container
+volumes:
+  postgres_db:
+
+
+
+# docker-compose up -d 
+
+# run docker based env mode
+# docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+
+# docker-compose down
+
+# docker inspect express-app-container => to get the container ip address (for db connection)
