@@ -1,0 +1,112 @@
+FROM node:17
+# Create app directory
+WORKDIR /app
+
+# // copy package.json and package-lock.json inside app directory
+COPY package*.json .
+
+# // copy prisma directory inside app directory it need for at npm install
+COPY ./src/prisma ./src/prisma
+
+# # // install dependencies
+# ARG NODE_ENV
+
+# RUN if [ "$NODE_ENV" = "development" ]; \
+#     then npm install; \
+#     else npm install --only=production; \
+#     fi
+
+RUN npm install
+
+# // copy all files from current directory to app directory
+COPY . .
+
+# // set environment variable 
+# ENV PORT=3000
+
+# // expose port 3000
+# EXPOSE $PORT
+
+# // start the app
+CMD ["npm", "run","start:dev"]
+
+# ------------------------------
+
+# **=> multi-stage build <=**
+
+# FROM node:17 as base
+
+# FROM base as development
+# WORKDIR /app
+# COPY package*.json .
+# COPY ./src/prisma ./src/prisma
+# RUN npm install
+# COPY . .
+# CMD ["npm", "run","start:dev"]
+
+# FROM base as production
+# WORKDIR /app
+# COPY package*.json .
+# COPY ./src/prisma ./src/prisma
+# RUN npm install --only=production
+# COPY . .
+# CMD ["npm", "start"]
+
+
+# ------------------------------
+
+# //1) build the image
+# docker build -t node-app-image .
+
+# //2) create the container and give it a name
+# docker run -p 3000:3000 --name node-app-container node-app-image
+
+# //3)* create the container in detached mode ( allows the container to continue runing even if the terminal is closed)
+# docker run -p 3000:3000 --name node-app-container -d node-app-image
+
+# //4) create the container in detached mode and mount the current directory to the app directory  (windows)
+# docker run -p 3000:3000 --name node-app-container  -v myvolume:/app -d node-app-image
+
+# //5)SET ENVIRONMENT VARIABLE when creating the container
+# docker run -p 3000:3000 --name node-app-container  -v myvolume:/app --env PORT=3000 --env ENV=development  -d node-app-image
+
+# set environment variable from file
+# docker run -p 3000:3000 --name node-app-container  -v myvolume:/app --env-file ./.env  -d node-app-image
+
+# run existing container
+# docker start node-app-container
+
+# Check Running Containers
+#docker ps
+
+# View All Containers (Including Stopped)
+#docker ps -a
+
+# //3) display logs of the container
+# docker logs node-app-container
+
+# //4) enter container shell
+# docker exec -it node-app-container sh||bash
+#(after enter conrainer shell) show container environment variables
+# printenv
+
+# //5) stop the container
+# docker stop node-app-container 
+
+# //6) remove the container
+# docker rm node-app-container -f
+
+# //7) remove the image
+# docker rmi node-app-image -f
+
+
+# //9) list all images
+# docker images
+
+# //10) list all volumes
+# docker volume ls
+
+# //11) list all networks
+# docker network ls
+
+
