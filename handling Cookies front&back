@@ -1,0 +1,28 @@
+using tokken between  front and back 
+
+at backend
+
+1-   app.use(
+       cors({
+       origin: "http://localhost:3000", // allow only this origin to access the server
+       credentials: true, // Allow sending cookies with cross-origin requests
+               })
+         );
+
+2-   res.cookie("testToken", token, {
+       httpOnly: true, // cant access with js at client size
+       secure: process.env.NODE_ENV === "production",
+       });
+
+ 3-   app.use(cookieParser()); middleware    // cookie-parser pkg
+
+ 4- at any req can acces cookies by => req.cookies
+
+at frontend
+
+ 1-   const axiosInstance = axios.create({
+        baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+        withCredentials: true, 
+         });
+ 2- now any request send to backend the req shoud carry the cookies which sended from
+      backend like token when login
