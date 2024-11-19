@@ -14,7 +14,7 @@ at backend
 2-   res.cookie("testToken", token, {
        httpOnly: true, // can not access with js at client size
        secure: process.env.NODE_ENV === "production", // check that front and back work under https
-        sameSite: "None", // in case origins[domain,post,protocol] diff between front and back
+       sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",, // in case origins[domain,post,protocol] diff between front and back
        });
 
  3-   app.use(cookieParser()); middleware    // cookie-parser pkg
