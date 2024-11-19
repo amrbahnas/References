@@ -4,10 +4,12 @@ at backend
 
 1-   app.use(
        cors({
-       origin: "http://localhost:3000", // allow only this origin to access the server
-       credentials: true, // Allow sending cookies with cross-origin requests
-               })
-         );
+          origin: true,
+          credentials: true, // Allow sending cookies with cross-origin requests
+           methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow only GET, POST, PUT, DELETE methods
+          allowedHeaders: ["Content-Type", "Authorization"], // Allow only Content-Type and Authorization headers
+           })
+      );
 
 2-   res.cookie("testToken", token, {
        httpOnly: true, // cant access with js at client size
