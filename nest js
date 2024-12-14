@@ -1,0 +1,1065 @@
+
+/// nestjs Summary
+
+// * shared module and services
+// our application is Big Module which carry many small modules
+// each module is a collection of controllers, services, providers, and other related files
+
+// module by default exported class, can used in another module by put it at module imports array
+// usually module import another module for use his services
+// to use service of another module, we need to import that module in our module first
+// and  we need to export this service in his module first
+
+// ex: we have module A and module B
+// module A have service A-Service
+// module B need to use A-Service
+// we need to import AModule in BModule (put it in imports array)
+// and export A-Service in AModule (put it in exports array)  // so we can use it in another module
+// then we can put A-Service in providers array in BModule
+
+// * Middleware
+// Middleware  can be normal function or class based on decorator
+// Middleware apply  at module class
+
+// * pipes , validation , exception handling , response , redirect , control headers , control status codes ,
+// find all of them in user.controller.ts file
+
+// * ValidationPipe and ( class-validator with Interface types)
+// ValidationPipe is a pipe that uses class-validator to validate Body based on class-validator decorators at types file
+// class-validator is  a package that provides decorators to add validation to our fields
+// by using class-validator at Typescript Interface , ValidationPipe Can use the Interface at validation
+// then at controller we can use ValidationPipe to add validation to our request body
+// ex: @Body(ValidationPipe) createUserDto: CreateUserDto , ValidationPipe will validate body based on CreateUserDto Interface
+
+// * Exception filter
+// nest has build in exception filter that automatically catch the error type HTTP Exception and return response
+// you can create custom exception filter for catch the HTTP Exception and return custom response (ex: HttpExceptionFilter at main.ts file)
+// also you can create custom exception filter for catch the Error and return custom response (ex: HttpErrorExceptionFilter at main.ts file)
+// we can use it at controller by using @UseFilters decorator or globally by using app.useGlobalFilters
+// ex: @UseFilters(HttpExceptionFilter) , HttpExceptionFilter is a class that implements ExceptionFilter interface
+
+// * Guards
+// Guards is a class that implements CanActivate interface
+// Guards is used to protect routes based on some condition checks ( token , roles)
+// we can use it at controller by using @UseGuards decorator
+// ex: @UseGuards(AuthGuard,RoleGuard) , AuthGuard and RoleGuard is a class that implements CanActivate interface
+
+// * Interceptors (before and after)
+// use cases: logging, caching, timeout, transform response, error handling
+// Interceptors is a class that implements NestInterceptor interface
+// Interceptors is used to intercept the request and response before and after the controller
+// we can use it at controller by using @UseInterceptors decorator
+// ex: @UseInterceptors(LoggingInterceptor) , LoggingInterceptor run before and after the controller route handler
+
+// * Decorators
+// @body, @param, @query it is called decorators
+// we can do custom decorators by using @Injectable() decorator
+// line @user decorator in order.controller.ts file it used to get user from request object
+
+// *nestjs components summary
+// Controllers: responsible for handling incoming requests and returning responses to the client
+// Providers(Services):  functions that used by controllers to handle route requests
+// Modules: class group controllers, services, providers, and other related files (main head of endpoint like "user")
+// Middleware: functions that run before the route handler for apply like helmet, cors, etc
+// Pipes:  for validation request data like (body) and transformation like form string to number
+// Guards: for protect route based on some condition like token, roles
+// Interceptors: for intercept the request and response before and after the controller
+// Exception filters: for catch the error and return custom response
+// Custom decorators: for add custom decorators to our application like @Body, @Param, @Query
+
+// * Sequence of execution
+// Middleware -> Guards -> Interceptors before ( Pipes -> Route handler ) after -> Exception filter
+
+// nestjs
+
+// -nest g resource [name] => create CRUD Files
+// -nest g controller [name] => create controller file
+// -ab*cd =>abcd, ab_cd, abecd
+// -npm run start:dev => run watch feature
+// -nest g service cats  => create service
+
+//***Techniques***
+
+// 1-configuration
+// npm i --save @nestjs/config
+// at imports[] of app.module add ConfigModule.forRoot()
+// now create.env file at root and add PORT=3000
+// to get POST value => process.env.PORT
+// *advanced*( get env from config file )
+// you can create file  called config
+// ex : config.ts and the content is
+//   export default () => ({
+//   database: {
+//     host: process.env.DATABASE_HOST,
+//     port: parseInt(process.env.DATABASE_PORT, 10) || 5432,
+//   },
+//   });
+// know to add this config file => use load key at forRoot() and pass the file => ConfigModule.forRoot({load:[config]})
+// to get values from config file  we can use service called ConfigService
+// and to use this service at all application we need to add isGlobal:true at ConfigModule.forRoot({isGlobal:true})
+// now you can add ConfigService at constructor of any service or controller and use it
+// ex: constructor(private configService: ConfigService) {}
+// ex: to get database host value => this.configService.get('database.host')
+// if you did not use "isGlobal:true" you need to add ConfigModule.forFeature(config) at imports[] of each module that want to use configService
+// note: by configService you can also access to env values from .env  process.env.TEST  === this.configService.get('TEST')
+// *forRoot() options*
+// forRoot({
+//   envFilePath: ['.dev.env',.test.env], // load multi files, if variable exist in both files, the first one will be used
+//   isGlobal: true, // make module global
+//   load: [config], // load config file that access by ConfigService
+//   cache: true, // cache env values at memory for fast access
+//   })
+// *Env validation*
+// you can add validation to env values by using Joi
+// ex: validationSchema: Joi.object({PORT: Joi.number().port().default(3000)}),
+// ex: validationOptions: {allowUnknown: false,abortEarly: true,}
+// allowUnknown: false => if env value not exist at schema, it will throw error
+// abortEarly: true => if one of env value not valid, it will throw error and not continue validate other values
+//**config.yaml format for better readability**
+// first important for building: at nest-cli.json  add "assets": [{ "include": "../config/*.yaml", "outDir": "./dist/config" }] under compilerOptions
+// you can use yaml file instead of config.ts file
+// npm i  js-yaml
+// npm i -D @types/js-yaml
+// create file called config.yaml and add the values
+// ex: database:
+//      host: localhost
+//      port: 5432
+// then create config.ts file and add the content
+// import { readFileSync } from 'fs';
+// import * as yaml from 'js-yaml';
+// import { join } from 'path';
+// const YAML_CONFIG_FILENAME = 'config.yaml';
+// export default () => {
+//   const config = yaml.load(
+//     readFileSync(join(__dirname, YAML_CONFIG_FILENAME), 'utf8'),
+//   ) as Record<string, any>;
+//   return config;
+// };
+// then at imports[] of app.module add ConfigModule.forRoot({load:[config]})
+// now you can use ConfigService to get values from config.yaml file
+
+// ****Database****
+// 1- **using TypeORM**
+// npm i typeorm @nestjs/typeorm typeorm mysql2
+// import the TypeOrmModule into the root AppModule
+// imports: [
+//   TypeOrmModule.forRoot({
+//     type: 'mysql',
+//     host: 'localhost',
+//     port: 3306,
+//     username: 'root',
+//     password: 'root',
+//     database: 'test',
+//     entities: [],
+//     synchronize: true,
+//     retryAttempts: 2,//Number of attempts to connect to the database
+//     retryDelay: 1000, //Delay between connection retry attempts
+//   }),
+// ],
+// 2- create User entity using TypeORM
+// create file called user.entity.ts and add the content
+// import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+// @Entity()
+// export class User {
+//   @PrimaryGeneratedColumn()
+//   id: number;
+//   @Column()
+//   firstName: string;
+// }
+// 3- **to use User entity in our application**
+//  -add it at entities array at TypeOrmModule.forRoot()
+//    ex:entities: [User], // add User entity to entities array
+//  -add it at imports[] of user.module
+//    ex: imports: [TypeOrmModule.forFeature([User])],
+// know you can use User entity in user.service.ts file by insert in at service constructor
+//    constructor(
+//      @InjectRepository(User)
+//       private UserModule: Repository<User>,
+//     ) {}
+//     findAll(): Promise<User[]> {
+//        return this.UserModule.find();
+//      }
+// 4- ** if you need to use "User entity" in another module, you need to export TypeOrmModule (which include the module inside forFeature)  at user.module
+//      @Module({
+//        imports: [TypeOrmModule.forFeature([User])],
+//        exports: [TypeOrmModule]
+//       })
+// now if you import UserModule in another module, you can use User entity
+// 5- **to use configService for get env values from config file**
+// instead using  TypeOrmModule.forRoot()
+// you can use TypeOrmModule.forRootAsync() for get env values from config file
+// ex: TypeOrmModule.forRootAsync({
+//       imports: [ConfigModule], // if you use isGlobal:true at ConfigModule.forRoot({isGlobal:true}) you do not need to import ConfigModule
+//       useFactory: (configService: ConfigService) => ({
+//         type: 'mysql',
+//         host: configService.get('database.host'),
+//       }),
+//       inject: [ConfigService],
+//     }),
+
+// ****Caching****
+// npm install @nestjs/cache-manager cache-manager
+// apply CacheModule  at app.module
+// @Module({
+//   imports: [CacheModule.register({
+//    isGlobal: true, // make module global, so can use cacheManager in any module without import CacheModule
+//    ttl: 5, // 5s for cache time
+//    max: 10, // maximum number of items in cache
+// })],
+//   controllers: [AppController],
+// })
+// to use cacheManager at any service or any controller( we set isGlobal: true), you need to inject it at constructor
+//  constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
+//  async findOne(@Param('id') id: string) {
+//   await this.cacheManager.get('product/' + id);
+//   await this.cacheManager.set('product/' + id, newValue, 1000); // 1000ms = 1s , to disable cache set time to 0
+//   await this.cacheManager.del('key');
+//   await this.cacheManager.reset();
+// }
+// ** auto cache for all Get routes in all application
+// add CacheInterceptor at app.module inside providers array
+// @Module({
+//   imports: [CacheModule.register()],
+//   ...
+//   providers: [
+//     {
+//       provide: APP_INTERCEPTOR,
+//       useClass: CacheInterceptor,
+//     },
+//   ],
+// })
+// Now all Get routes in all application will be cached
+// ** apply auto cache feature for specific controller
+// add CacheInterceptor at controller file
+//  @Controller()
+//  @UseInterceptors(CacheInterceptor) // know all Get routes in this controller will be cached
+// * Global cache overrides
+// you can override the global cache time for specific controller or specific route like ttl, CacheKey value using @CacheTTL,CacheKey decorator
+// @Controller()
+// @CacheTTL(50) // override cache time for all Get routes in this controller
+// export class CatController {
+//   @CacheKey('custom_key')//CacheKey auto-generated based on the route path  you can override it with this decorator
+//   @CacheTTL(20) // override cache time for this route
+//   @Get()
+//   findAll() {
+//     return this.catService.findAll();
+//   }
+// ** what if isGlobal: true not used at CacheModule
+//  you need to import CacheModule at each module first if you want to use cacheManager service
+// caching With Redis
+// npm i cache-manager-redis-yet
+// import redisStore and set store key
+// import  {redisStore} from 'cache-manager-redis-yet';
+// @Module({
+//   imports: [
+//     CacheModule.register({
+//       store: redisStore,
+//       host: 'localhost',
+//       port: 6379,
+//     }),
+//   ],
+// })
+// caching With Redis using ConfigService
+// @Module({
+//   imports: [
+//     CacheModule.registerAsync({
+//       imports: [ConfigModule],
+//       useFactory: async (configService: ConfigService) => ({
+//         store: redisStore,
+//         host: configService.get('redis.host'),
+//         port: configService.get('redis.port'),
+//       }),
+//       inject: [ConfigService],
+//     }),
+//   ],
+// })
+// know run redis-server  and cacheManager will connect to redis and save data there
+
+// ****Serialization and add new key to response****
+// remove unwanted fields from response like password, token
+// npm install class-transformer
+// ex: on User
+// at user.dto.ts or user.entity.ts file add @Exclude() decorator to unwanted fields
+// import { Exclude } from 'class-transformer';
+// export class UserEntity {
+//   @Exclude()
+//   password: string;
+// }
+// know to apply sanitize to response, you need to add ClassSerializerInterceptor from @nestjs/common at controller or before the route
+// for global apply, add it at app.module inside providers array
+// @Module({
+// ...
+//   providers: [
+//     {
+//       provide: APP_INTERCEPTOR,
+//       useClass: ClassSerializerInterceptor,
+//     },
+//   ],
+// })
+// know all response will be sanitized if dto or entity file have @Exclude() or @Expose() decorator
+// ** apply sanitize to specific route**
+// @UseInterceptors(ClassSerializerInterceptor)
+// @Get()
+// findOne(): UserEntity {
+//   return new UserEntity({
+//     id: 1,
+//     firstName: 'John',
+//     lastName: 'Doe',
+//     password: 'password',
+//   });
+// }
+// know the response will be {id:1,firstName:'John',lastName:'Doe'}
+// ** add new key to response**
+// you can add new key to response by using @Expose() decorator at DTO file or Entity file
+// import { Expose } from 'class-transformer';
+// export class UserEntity {
+//   fileName: string;
+//   lastName: string;
+//   @Expose()
+//   get fullName(): string {
+//   return `${this.firstName} ${this.lastName}`;
+//   }
+// }
+// know the response will be {id:1,firstName:'John',lastName:'Doe',fullName:'John Doe'} note: fullName is not exist at UserEntity
+// if use need remove keys ex: start with "_" from the response you can use @SerializeOptions decorator before the route
+// @SerializeOptions({
+//    excludePrefixes: ['_'],
+//  })
+// @Get()
+// findOne(): UserEntity {
+//   return {
+//     id: 1,
+//     firstName: 'John',
+//     lastName: 'Doe',
+//     _id: '23432453ff',
+//   };
+// }
+// know the response will be {id:1,firstName:'John',lastName:'Doe'} note: _id is removed
+// For ensures that all responses are transformed into instances of the UserEntity class, you can use the @SerializeOptions decorator
+// @SerializeOptions({ type: UserEntity })
+// if the entity has ref to another entity and you need to return only specific fields from the ref entity you can use @Transform decorator before the field
+// ex: at user.entity.ts file
+// export class UserEntity {
+//   @Transform(({ value }) => value.name)
+//   role: RoleEntity; // ref to RoleEntity
+//   constructor(partial: Partial<UserEntity>) {
+//     Object.assign(this, partial);
+//   }
+// }
+// know the response will be {..., role:'admin'} note: role is ref to RoleEntity and we return only name field by using @Transform decorator
+
+// **Versioning**
+// if you need to add prefix to all routes like /v1 => /v1/user
+// this help for run multi same route based on version
+// ex:
+//     @Version('1')
+//     @Get('cats')
+//     findAllV1(): string {
+//      return 'This action returns all cats for version 1'; // run at /v1/cats
+//    }
+//    @Version('2')
+//    @Get('cats')
+//    findAllV2(): string {
+//      return 'This action returns all cats for version 2'; // run at /v2/cats
+//    }
+// for enable versioning  add this line at main.ts file
+// app.enableVersioning({
+//   type: VersioningType.URI, // can be => URI, HEADER, MEDIA_TYPE,
+//   defaultVersion: '1', all routes will start with /v1/...  until you assign version to route by using @Version('1') decorator or at @Controller({version:'1'}) decorator
+// });
+// type ***
+// at type URI the version will be at the start of the route: /v1/cats
+// at type HEADER the version will be at the header: X-Version: 1
+// app.enableVersioning({
+//   type: VersioningType.HEADER,
+//   header: 'X-Version', //name of header that contain version
+// });
+// at type MEDIA_TYPE the version will be at Accept: application/json;v=2
+// app.enableVersioning({
+//   type: VersioningType.MEDIA_TYPE,
+//   key: 'v=',
+// });
+// Version key values **
+// version: '1', // all routes work only with /v1/... until you assign different version to route
+// version: ['1', '2','3'], // all routes work only with [ /v1/... or /v2/... or /v3/... ] until...
+// version: VERSION_NEUTRAL, // no version, the route will not have version prefix => /user if you req => v1/user it will not work
+// so if we use defaultVersion: '1' , the route with VERSION_NEUTRAL will run without version prefix
+// assign different version to route**
+// when adding defaultVersion: '1' at app.enableVersioning() all routes will be /v1/...
+// but you can assign different version to route by
+// using @Controller({version:'2'}) decorator for all routes in this controller
+// or by using @Version('2') decorator for specific route
+
+// **Cookies**
+//npm i cookie-parser
+//npm i -D @types/cookie-parser
+// add cookie-parser at main.ts file
+// import * as cookieParser from 'cookie-parser';
+// app.use(cookieParser());
+// now you can use req.cookies to get cookies values
+// ex:
+// @Get()
+// findAll(@Req() request: FastifyRequest) {
+//   console.log(request.cookies); // or "request.cookies['cookieKey']"
+// }
+// or you can create custom decorator for cookies
+// create file called cookies.decorator.ts and add the content
+// import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+// export const Cookies = createParamDecorator(
+//   (data: string, ctx: ExecutionContext) => {
+//     const request = ctx.switchToHttp().getRequest();
+//     return data ? request.cookies?.[data] : request.cookies;
+//   },
+// );
+// now you can use @Cookies('cookie') decorator at controller
+// ex:
+// @Get()
+// findAll(@Cookies('name') name: string) {
+//   return name;
+// }
+// note: you must install cookie-parser package for use cookies
+// to send cookies at response you can use res.cookie('cookieKey')
+// ex:
+// @Get()
+// findAll(@Res() response: FastifyReply) {
+//   response.cookie('name', 'value');
+//   return 'cookie sent';
+// }
+
+// **Events**
+// npm i --save @nestjs/event-emitter
+// Events is a way to communicate between different parts of the application by emit,OnEvent
+// at app.module add EventEmitterModule.forRoot() at imports[]
+// @Module({
+//   imports: [
+//     EventEmitterModule.forRoot({
+//      //set this to `true` to use wildcards
+//      wildcard: false,
+//      // the delimiter used to segment namespaces
+//      delimiter: '.',
+//      // set this to `true` if you want to emit the newListener event
+//      newListener: false,
+//      // set this to `true` if you want to emit the removeListener event
+//      removeListener: false,
+//      // the maximum amount of listeners that can be assigned to an event
+//      maxListeners: 10,
+//      // show event name in memory leak message when more than maximum amount of listeners is assigned
+//      verboseMemoryLeak: false,
+//      // disable throwing uncaughtException if an error event is emitted and it has no listeners
+//      ignoreErrors: false,
+//    })
+//   ],
+// })
+// Best practice For Events**
+// 1- create folder called events inside it create files called events.ts and event.service.ts
+// 2- at events.ts file add the events
+// ex: for OrderEvents
+// export enum OrderEvents {
+//   ORDER_CREATED = 'order.created',
+//   ORDER_UPDATED = 'order.updated',
+//  }
+// 3- at event.service.ts file add the content (function handling the events)
+// import { Injectable } from '@nestjs/common';
+// import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
+// import { OrderEvents } from './events';
+// @Injectable()
+// export class EventService {
+//   constructor(private eventEmitter: EventEmitter2) {}
+//   @OnEvent(OrderEvents.ORDER_CREATED) //=> on ORDER_CREATED event emit
+//   handleOrderCreatedEvent(payload: any) {
+//     console.log('Order created event', payload);
+//   }
+// }
+// 4- add EventService at providers[] of app.module
+// 5- Finally, you can emit the event from any controller or service
+// ex: at Order controller file
+// constructor(private eventEmitter: EventEmitter2) {}
+// @Post()
+// create(@Body() createOrderDto: CreateOrderDto) {
+//   this.eventEmitter.emit(OrderEvents.ORDER_CREATED, createOrderDto);
+//   return this.orderService.create(createOrderDto);
+// }
+// know the handleOrderCreatedEvent function at event.service.ts file will run
+
+// **Compression**
+// decrease the size of the response body
+// npm i --save compression
+// import * as compression from 'compression';
+// app.use(compression());
+
+// **File upload**
+// npm i -D @types/multer
+// Nest provides a built-in module based on the multer middleware package
+// it come with 5 Interceptors that can help you to receive files form data form request
+// FileInterceptor('file'), FilesInterceptor('files'),
+// FileFieldsInterceptor([{ name: 'avatar', maxCount: 1 }, { name: 'background', maxCount: 1 }]),
+// AnyFilesInterceptor(), NoFilesInterceptor()
+// ex1: FileInterceptor => this for single file
+// @Post('upload')
+// @UseInterceptors(FileInterceptor('file'))
+// uploadFile(@UploadedFile() file: Express.Multer.File) {
+//   console.log(file);
+// }
+// ex2: FilesInterceptor => this for Array of files
+// @Post('upload')
+// @UseInterceptors(FilesInterceptor('files'))
+// uploadFile(@UploadedFiles() files: Express.Multer.File[]) {
+//   console.log(files);
+// }
+// 5 interceptors import from @nestjs/platform-express, @UploadedFile() from @nestjs/common
+// ex3: FileFieldsInterceptor => this for multiple files with different names
+// @Post('upload')
+// @UseInterceptors(FileFieldsInterceptor([{ name: 'avatar', maxCount: 1 }, { name: 'background', maxCount: 1 }]))
+// uploadFile(@UploadedFiles() files: { avatar: Express.Multer.File, background: Express.Multer.File }) {
+//   console.log(files);
+// }
+// ex4: AnyFilesInterceptor => this catch all files come from request(when you do not know the file name)
+// @Post('upload')
+// @UseInterceptors(AnyFilesInterceptor())
+// uploadFile(@UploadedFiles() files: Express.Multer.File[]) {
+//   console.log(files);
+// }
+// ex5: NoFilesInterceptor => this for when you do not want to receive files, throw a BadRequestException if files exist
+// @Post('upload')
+// @UseInterceptors(NoFilesInterceptor())
+// uploadFile() {
+//   return 'No files';
+// }
+// file validation**
+// you can add validation to file by create ValidationPipe  and pass it to @uploadFile decorator
+// ex: for validation file size
+// import { PipeTransform, Injectable, ArgumentMetadata } from '@nestjs/common';
+// @Injectable()
+// export class FileSizeValidationPipe implements PipeTransform {
+//   transform(value: any, metadata: ArgumentMetadata) {
+//     // "value" is an object containing the file's attributes and metadata
+//     const oneKb = 1000;
+//     return value.size < oneKb;
+//   }
+// }
+// know you can use FileSizeValidationPipe inside @uploadFile decorator
+// @Post('file')
+// @UseInterceptors(FileInterceptor('file'))
+// uploadFileAndValidate(@UploadedFile(
+//   new FileSizeValidationPipe(),
+// ) file: Express.Multer.File, ) {
+//   return file;
+// }
+//Default options**
+// you can set default options for multer by using MulterModule.register()
+// ex: MulterModule.register({
+//   dest: './uploads', // save files in local folder
+//   limits: { fileSize: 1 * 1024 * 1024 }, // 1MB file size limit
+// })
+// access configService**
+// MulterModule.registerAsync({
+//   imports: [ConfigModule],
+//   useFactory: async (configService: ConfigService) => ({
+//     dest: configService.get<string>('MULTER_DEST'),
+//   }),
+//   inject: [ConfigService],
+// });
+
+//***HTTP module (axios) ***
+// npm i --save @nestjs/axios axios
+// import HttpModule at a module where you want to use it
+// ex: cat.module.ts file
+// import { HttpModule } from '@nestjs/axios';
+// @Module({
+//   imports: [HttpModule],
+// })
+// or Global you can import it at app.module to use it at all application
+// ex: app.module.ts file
+// import { HttpModule } from '@nestjs/axios';
+// @Module({
+//   imports: [
+// {
+//   ...HttpModule.register({}),
+//   global: true,
+// },
+// ]
+// })
+// ex: use httpService
+// at cats.controller.ts file you can use HttpService to make http request
+// constructor(private httpService: HttpService) {}
+// @Get('thirdApi')
+// async thirdApi() {
+//   const { data } = await firstValueFrom(
+//     this.httpService.get('https://jsonplaceholder.typicode.com/todos/1').pipe(
+//       catchError((error: AxiosError) => {
+//         throw 'An error happened!';
+//       }),
+//     ),
+//   );
+//   return data;
+// }
+
+// **Session**
+// session is a way to store data at server side by using session id at client side stored at cookie
+// npm i express-session
+// npm i -D @types/express-session
+// at main.ts file add express-session
+// import * as session from 'express-session';
+// app.use(
+//   session({
+//     secret: 'my-secret',
+//     resave: false,
+//     saveUninitialized: false,
+//   }),
+// );
+// know you can access session at request object
+// ex:
+// @Get()
+// findAll(@Req() request: Request) {
+//   request.session.visits = request.session.visits ? request.session.visits + 1 : 1;
+// }
+// or using @Session() decorator
+// ex:
+// @Get()
+// findAll(@Session() session: Record<string, any>) {
+//   session.visits = session.visits ? session.visits + 1 : 1;
+// }
+// to destroy session (logout) you can use req.session.destroy()
+// ex:
+// @Get()
+// logout(@Req() request: Request) {
+//   request.session.destroy((err) => {
+//     if (err) {
+//       return console.log(err);
+//     }
+//     console.log('session destroyed');
+//   });
+// }
+// when user connect with server, the server will create session and we will store it at db or memory and server automatic send session id to client as cookie
+// we can use mongoDB to store session
+// npm i connect-mongo
+// npm i -D @types/connect-mongo
+// import connectMongo from 'connect-mongo';
+// const MongoStore = connectMongo(session);
+// app.use(
+//   session({
+//     store: new MongoStore({ url: 'mongodb://localhost:27017/test' }),
+//   }),
+// );
+// know the session will store at mongoDB as collection for each session(user)
+// to set session time you can use cookie.maxAge
+// ex:
+// app.use(
+//   session({
+//     cookie: { maxAge: 60000 }, // 1 minute if the user does not interact with the server for 1 minute, the session will be destroyed
+//  }),
+
+// **Model-View-Controller**
+// send html page as response
+// npm install --save hbs => handlebars
+// at main.ts file add hbs
+// app.useStaticAssets(join(__dirname, '..', 'public'));
+// app.setBaseViewsDir(join(__dirname, '..', 'views'));
+// app.setViewEngine('hbs');
+// at public folder=> views folder => create hbs files (html)
+// ex: index.hbs file
+// <!DOCTYPE html>
+// <html>
+//   <head>
+//     <meta charset="utf-8" />
+//     <title>App</title>
+//   </head>
+//   <body>
+//     {{ message }}
+//   </body>
+// </html>
+// kmow to send this html page as response
+// @Controller()
+// export class AppController {
+//   @Get()
+//   @Render('index')
+//   root() {
+//     return { message: 'Hello world!' };
+//   }
+// }
+
+// **Authentication**
+// here we have 2 modules , user ,authentication
+// user module have user entity and user service
+// at user servive we have get user
+// async findOne(username: string): Promise<User | undefined> {
+//   return this.users.find(user => user.username === username);
+// }
+// we export and import user service at authentication module
+// at authentication  service we have login method , this service use user service to get user
+// async signIn(username: string, pass: string): Promise<any> {
+//   const user = await this.usersService.findOne(username);
+//   if (user?.password !== pass) {
+//     throw new UnauthorizedException();
+//   }
+//   const { password, ...result } = user;
+//   // TODO: Generate a JWT and return it here
+//   // instead of the user object
+//   return result;
+// }
+// at auth controller we have login method
+//   @HttpCode(HttpStatus.OK)
+//   @Post('login')
+//   signIn(@Body() signInDto: Record<string, any>) {
+//     return this.authService.signIn(signInDto.username, signInDto.password);
+//   }
+
+// JWT **
+//npm install --save @nestjs/jwt
+// know at auth service import JwtService and inject it at constructor
+// import { JwtService } from '@nestjs/jwt';
+// constructor(
+//   private usersService: UsersService,
+//   private jwtService: JwtService
+// ) {}
+// now when login succes we send token to client side as response
+// ex:
+// @HttpCode(HttpStatus.OK)
+// @Post('login')
+// signIn(@Body() signInDto: Record<string, any>) {
+//   const user = this.usersService.findOne(signInDto.username);
+//   if (user.password !== signInDto.password) {
+//     throw new UnauthorizedException();
+//   }
+//   const payload = { username: user.username, sub: user.userId };
+//   return {
+//     access_token: this.jwtService.sign(payload), // return token
+//   };
+// }
+// for config jwt
+// at auth module at imports[] add jwt
+// import { JwtModule } from '@nestjs/jwt';
+// @Module({
+//   imports: [
+//     JwtModule.register({
+//       global: true, //at global you can use it at all application
+//       secret: 'secret',
+//       signOptions: { expiresIn: '60s' },
+//     }),
+//   ],
+//   providers: [JwtService],
+
+// protected routes (guard)**
+// check req token if target route is protected
+// at auth create auth.guard.ts file
+// import {
+//   CanActivate,
+//   ExecutionContext,
+//   Injectable,
+//   UnauthorizedException,
+// } from '@nestjs/common';
+// import { JwtService } from '@nestjs/jwt';
+// import { jwtConstants } from './constants';
+// import { Request } from 'express';
+
+// @Injectable()
+// export class AuthGuard implements CanActivate {
+//   constructor(private jwtService: JwtService) {}
+
+//   async canActivate(context: ExecutionContext): Promise<boolean> {
+//     const request = context.switchToHttp().getRequest();
+//     const token = this.extractTokenFromHeader(request);
+//     if (!token) {
+//       throw new UnauthorizedException();
+//     }
+//     try {
+//       const payload = await this.jwtService.verifyAsync(
+//         token,
+//         {
+//           secret: jwtConstants.secret
+//         }
+//       );
+//       request['user'] = payload;
+//     } catch {
+//       throw new UnauthorizedException();
+//     }
+//     return true;
+//   }
+
+//   private extractTokenFromHeader(request: Request): string | undefined {
+//     const [type, token] = request.headers.authorization?.split(' ') ?? [];
+//     return type === 'Bearer' ? token : undefined;
+//   }
+// }
+// know you can use AuthGuard at controller by using @UseGuards decorator
+// ex:
+// @UseGuards(AuthGuard)
+// @Get('profile')
+// getProfile(@Request() req) {
+//   return req.user;
+// }
+
+// Authorization (RolesGuard,RolesDecorator) **
+// RolesDecorator => to specify what roles are required to access specific resources
+// RolesGuard => based on RolesDecorator passed value to check user role
+// export enum Role {
+//   User = 'user',
+//   Admin = 'admin',
+// }
+// create roles.decorator.ts file
+// This decorator allows specifying what roles are required to access specific resources.
+// import { SetMetadata } from '@nestjs/common';
+// import { Role } from '../enums/role.enum';
+// export const ROLES_KEY = 'roles';
+// export const Roles = (...roles: Role[]) => SetMetadata(ROLES_KEY, roles);
+// now we can use it to decorate any route handler.
+// @Post()
+// @Roles(Role.Admin) // only admin can access this route
+// create(@Body() createCatDto: CreateCatDto) {
+//   this.catsService.create(createCatDto);
+// }
+// last we create roles.guard.ts file for check user role
+// import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+// import { Reflector } from '@nestjs/core';
+// @Injectable()
+// export class RolesGuard implements CanActivate {
+//   constructor(private reflector: Reflector) {}
+
+//   canActivate(context: ExecutionContext): boolean {
+//     const requiredRoles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [
+//       context.getHandler(),
+//       context.getClass(),
+//     ]);
+//     if (!requiredRoles) {
+//       return true;
+//     }
+//     const { user } = context.switchToHttp().getRequest();
+//     return requiredRoles.some((role) => user.roles?.includes(role));
+//   }
+// }
+// full ex: at user controller
+// @UseGuards(RolesGuard) => work when you use @Roles decorator
+// @Controller('user')
+// @Roles(Role.Admin) // only admin can access this route
+// @Get()
+// findAll(@Req() request: Request) {
+//   return this.usersService.findAll();
+// }
+// @Get(':id') // no role required
+// findOne(@Param('id') id: string) {
+//   return this.usersService.findOne(+id);
+// }
+
+// Encryption and Hashing**
+// for Encryption (encryptedText )
+// import { createCipheriv, randomBytes, scrypt } from 'crypto';
+// import { promisify } from 'util';
+// const iv = randomBytes(16);
+// const password = 'Password used to generate key';
+// // The key length is dependent on the algorithm.
+// // In this case for aes256, it is 32 bytes.
+// const key = (await promisify(scrypt)(password, 'salt', 32)) as Buffer;
+// const cipher = createCipheriv('aes-256-ctr', key, iv);
+// const textToEncrypt = 'Nest';
+// const encryptedText = Buffer.concat([
+//   cipher.update(textToEncrypt),
+//   cipher.final(),
+// ]);
+// for Encryption (decryptedText)
+// import { createDecipheriv } from 'crypto';
+// const decipher = createDecipheriv('aes-256-ctr', key, iv);
+// const decryptedText = Buffer.concat([
+//   decipher.update(encryptedText),
+//   decipher.final(),
+// ]);
+// Hashing **
+// npm i bcrypt
+// npm i -D @types/bcrypt
+// usage
+// import * as bcrypt from 'bcrypt';
+// const saltOrRounds = 10;
+// const password = 'random_password';
+// const hash = await bcrypt.hash(password, saltOrRounds);
+// to generate a salt, use the genSalt function:
+// const salt = await bcrypt.genSalt();
+// To compare/check a password, use the compare function
+// const isMatch = await bcrypt.compare(password, hash);
+
+// Helmet**
+// middleware functions that set security-related HTTP headers
+//  npm i --save helmet
+// at main.ts
+// import helmet from 'helmet';
+// app.use(helmet())
+// When using helmet, @apollo/server (4.x), and the Apollo Sandbox, there may be a problem with CSP on the Apollo Sandbox. To solve this issue configure the CSP as shown below
+// app.use(helmet({
+//   crossOriginEmbedderPolicy: false,
+//   contentSecurityPolicy: {
+//     directives: {
+//       imgSrc: [`'self'`, 'data:', 'apollo-server-landing-page.cdn.apollographql.com'],
+//       scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
+//       manifestSrc: [`'self'`, 'apollo-server-landing-page.cdn.apollographql.com'],
+//       frameSrc: [`'self'`, 'sandbox.embed.apollographql.com'],
+//     },
+//   },
+// }));
+
+//CORS**
+//To enable CORS, call the enableCors() method on the Nest application object
+// const app = await NestFactory.create(AppModule);
+// app.enableCors();
+// await app.listen(process.env.PORT ?? 3000);
+// Alternatively, enable CORS via the create() method's options object
+// const app = await NestFactory.create(AppModule, { cors: true });
+// await app.listen(process.env.PORT ?? 3000);
+
+// CSRF Protection**
+// unauthorized commands are sent from a trusted user to a web application
+// requires session middleware or cookie-parser to be initialized beforehand
+// npm i csrf-csrf
+// at main.ts
+//import { doubleCsrf } from 'csrf-csrf';
+// const {
+//   invalidCsrfTokenError, // This is provided purely for convenience if you plan on creating your own middleware.
+//   generateToken, // Use this in your routes to generate and provide a CSRF hash, along with a token cookie and token.
+//   validateRequest, // Also a convenience if you plan on making your own middleware.
+//   doubleCsrfProtection, // This is the default CSRF protection middleware.
+// } = doubleCsrf(doubleCsrfOptions);
+// app.use(doubleCsrfProtection);
+// As noted in the csrf-csrf documentation, this middleware requires session middleware or cookie-parser to be initialized beforehand. Please refer to the documentation for further details.
+
+//Rate Limiting**
+//npm i --save @nestjs/throttler
+// at app.module.ts
+// @Module({
+//   imports: [
+//     ThrottlerModule.forRoot([{
+//       ttl: 60000, //time to live in milliseconds 60s
+//       limit: 10, // you can send 10 req in 60s
+//     }]),
+//   ],
+// })
+//Multiple Throttler Definitions
+// @Module({
+//   imports: [
+//     ThrottlerModule.forRoot([
+//       {
+//         name: 'short',
+//         ttl: 1000,
+//         limit: 3,
+//       },
+//       {
+//         name: 'medium',
+//         ttl: 10000,
+//         limit: 20
+//       },
+//       {
+//         name: 'long',
+//         ttl: 60000,
+//         limit: 100
+//       }
+//     ]),
+//   ],
+// })
+//  named options, that can later be referenced in the @SkipThrottle() and @Throttle() decorators to change the options again
+// Customization
+// @SkipThrottle() => skip rate limit for specific route
+// @Throttle() => apply rate limit for specific route
+// ex :
+// @SkipThrottle()
+// @Controller('users') // skip rate limit for this route
+// export class UsersController {}
+// ex :
+// @Throttle({ default: { limit: 3, ttl: 60000 } })
+// @Controller('users') // apply rate limit for this route
+//Async Configuration
+// @Module({
+//   imports: [
+//     ThrottlerModule.forRootAsync({
+//       imports: [ConfigModule],
+//       inject: [ConfigService],
+//       useFactory: (config: ConfigService) => [
+//         {
+//           ttl: config.get('THROTTLE_TTL'),
+//           limit: config.get('THROTTLE_LIMIT'),
+//         },
+//       ],
+//     }),
+//   ],
+// })
+
+/// **websocket`
+//$ npm i --save @nestjs/websockets @nestjs/platform-socket.io
+// create sebsocket folder at src has (events-gateway.ts,ws.module.ts)
+// inside ws.module.ts file provide EventsGateway class in providers[]
+// import ws.module.ts in app.module
+
+// events-gateway.ts content
+// inside events-gateway.ts file we have class EventsGateway {} with @WebSocketGateway(port,{cors:{origin:'*'}} }) decorator
+// import { OnGatewayConnection, OnGatewayDisconnect, WebSocketGateway, WebSocketServer,SubscribeMessage } from '@nestjs/websockets';
+// import { Server, Socket } from 'socket.io';
+
+// @WebSocketGateway(8080,{cors:{origin:'*'}})
+// export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
+
+//   @WebSocketServer() server: Server;
+
+//   handleConnection(client: Socket, ...args: any[]) {
+//     console.log('client connected'); // when new client connect to websocket
+//     client.broadcast.emit('new-user-joined', client.id+'is joined'); // send message to all client "*except the new joined user*"
+//  }
+
+//   handleDisconnect(client: Socket) {
+//     console.log('client disconnected'); // when client disconnect from websocket
+//     this.server.emit('user-left', client.id+'is disconnected'); // send message to all client
+//   }
+
+// @SubscribeMessage('eventName') licensed to event,  like io.on('eventName', () => {})
+// handleEvent(client: Socket, payload: string) {
+// handleEvent(@MessageBody() payload: string,  @ConnectedSocket() client: Socket) {
+// this.server.emit('message', payload + 'from server'); // send message to all client at server
+// client.emit('message', payload + 'from client'); // send message to emitted client , like io.to(client.id).emit('message', payload
+// or
+// this.server.to(client.id).emit('message', payload + 'from server');
+// }
+// }
+
+// ws.module.ts content
+// import { Module } from '@nestjs/common';
+// import { ChatGateway } from './chat-gateway';
+// @Module({
+//   providers: [ChatGateway],
+// })
+// export class WsModule {}
+
+//  Perfect API Responses**
+// for this you can create global interceptor ex: ResponseInterceptor it reshape response before send to client as {data,success}
+// Interceptors
+// import {
+//   Injectable,
+//   NestInterceptor,
+//   ExecutionContext,
+//   CallHandler,
+// } from '@nestjs/common';
+// import { map, Observable, of } from 'rxjs';
+
+// @Injectable()
+// export class ResponseInterceptor implements NestInterceptor {
+//   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+//     return next.handle().pipe( //reshape response to {data,success}
+//       map((response) => ({
+//         data: response,
+//         success: true,
+//       })),
+//     );
+//   }
+// }
+
+// **swagger**
+// npm install --save @nestjs/swagger
+// at main.ts
+//import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+// const config = new DocumentBuilder()
+// .setTitle('Cats example')
+// .setDescription('The cats API description')
+// .setVersion('1.0')
+// .addTag('cats')
+// .build();
+// const documentFactory = () => SwaggerModule.createDocument(app, config);
+// SwaggerModule.setup('api', app, documentFactory)
+// swagger Decorators []
+// @ApiBearerAuth() // used defore UseGuards(AuthGuard) at controller for protect route(show authorization button in swagger access token)
+// @ApiTags('auth') // render cusotme module name in swagger usually it  used at the  controller Name
+// @ApiProperty() // applyed at dto file above the property for display example in swagger
+// search in swagger => http://localhost:3000/api to see the api documentation
+// for more customization => https://www.youtube.com/watch?v=4RMzl8k6dXg&list=PLHVUNsO6sqSpeFjQBl1KZMYEI-IL5idqZ&index=23
