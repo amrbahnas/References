@@ -4,3 +4,14 @@
 4- done know yarn is working 
 
 
+moving to yarn 
+
+To switch from npm to yarn, we need to:
+1-Remove the package-lock.json file (if it exists)
+2-Install yarn globally (if not already installed)
+3-Generate a new yarn.lock file
+
+npm install -g yarn
+del package-lock.json
+cmd /c del package-lock.json
+yarn install
