@@ -491,6 +491,7 @@
 // npm i -D @types/multer
 // Nest provides a built-in module based on the multer middleware package
 // it come with 5 Interceptors that can help you to receive files form data form request
+// you have to use one of them at your route for applying multer (separate file, body)
 // FileInterceptor('file'), FilesInterceptor('files'),
 // FileFieldsInterceptor([{ name: 'avatar', maxCount: 1 }, { name: 'background', maxCount: 1 }]),
 // AnyFilesInterceptor(), NoFilesInterceptor()
