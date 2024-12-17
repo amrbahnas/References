@@ -547,11 +547,37 @@
 //   return file;
 // }
 //Default options**
-// you can set default options for multer by using MulterModule.register()
-// ex: MulterModule.register({
-//   dest: './uploads', // save files in local folder
-//   limits: { fileSize: 1 * 1024 * 1024 }, // 1MB file size limit
-// })
+//For handle file uploads you need to know that:
+//Files will be temporarily stored in the ./uploads directory with unique names
+//The file will be uploaded to Cloudinary or your store from the temporary location
+//After successful upload (or in case of error), the temporary file will be deleted
+// for setting option for upload folder you created 
+// at single place where you handle file
+  @UseInterceptors(
+    FileInterceptor('profileImg', {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: (req, file, callback) => {
+          const uniqueSuffix =
+            Date.now() + '-' + Math.round(Math.random() * 1e9);
+          callback(null, `${uniqueSuffix}${extname(file.originalname)}`);
+        },
+      }),
+    }),
+  )
+// you can set default options globally for multer by using MulterModule.register() at app.module
+    MulterModule.register({
+      storage: diskStorage({
+        destination: './uploads',
+        filename: (req, file, callback) => {
+          const uniqueSuffix =
+            Date.now() + '-' + Math.round(Math.random() * 1e9);
+          callback(null, `${uniqueSuffix}${extname(file.originalname)}`);
+        },
+      }),
+      limits: { fileSize: 1 * 1024 * 1024 }, // 1MB file size limit
+    }),
+  
 // access configService**
 // MulterModule.registerAsync({
 //   imports: [ConfigModule],
