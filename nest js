@@ -512,6 +512,7 @@
 // @Post('upload')
 // @UseInterceptors(FileFieldsInterceptor([{ name: 'avatar', maxCount: 1 }, { name: 'images[]', maxCount: 5 }]))
 // note:  name: 'images[]'  frontend send key images multi times that displayed as images[] in formData
+// and you can acces the files  = >  const imageCover = files.imageCover?.[0];  const images = files['images[]'];
 // uploadFile(@UploadedFiles() files: { avatar: Express.Multer.File[], images: Express.Multer.File[] }) {
 //   console.log(files);
 // }
