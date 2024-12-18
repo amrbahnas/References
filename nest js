@@ -492,6 +492,7 @@
 // Nest provides a built-in module based on the multer middleware package
 // it come with 5 Interceptors that can help you to receive files form data form request
 // you have to use one of them at your route for applying multer (separate file, body)
+// 5 interceptors import from @nestjs/platform-express, @UploadedFile() from @nestjs/common
 // FileInterceptor('file'), FilesInterceptor('files'),
 // FileFieldsInterceptor([{ name: 'avatar', maxCount: 1 }, { name: 'background', maxCount: 1 }]),
 // AnyFilesInterceptor(), NoFilesInterceptor()
@@ -507,11 +508,11 @@
 // uploadFile(@UploadedFiles() files: Express.Multer.File[]) {
 //   console.log(files);
 // }
-// 5 interceptors import from @nestjs/platform-express, @UploadedFile() from @nestjs/common
 // ex3: FileFieldsInterceptor => this for multiple files with different names
 // @Post('upload')
-// @UseInterceptors(FileFieldsInterceptor([{ name: 'avatar', maxCount: 1 }, { name: 'background', maxCount: 1 }]))
-// uploadFile(@UploadedFiles() files: { avatar: Express.Multer.File, background: Express.Multer.File }) {
+// @UseInterceptors(FileFieldsInterceptor([{ name: 'avatar', maxCount: 1 }, { name: 'images[]', maxCount: 5 }]))
+// note:  name: 'images[]'  frontend send key images multi times that displayed as images[] in formData
+// uploadFile(@UploadedFiles() files: { avatar: Express.Multer.File[], images: Express.Multer.File[] }) {
 //   console.log(files);
 // }
 // ex4: AnyFilesInterceptor => this catch all files come from request(when you do not know the file name)
