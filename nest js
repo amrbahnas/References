@@ -513,6 +513,16 @@
 // @UseInterceptors(FileFieldsInterceptor([{ name: 'avatar', maxCount: 1 }, { name: 'images[]', maxCount: 5 }]))
 // note:  name: 'images[]'  frontend send key images multi times that displayed as images[] in formData
 // and you can acces the files  = >  const imageCover = files.imageCover?.[0];  const images = files['images[]'];
+// note sometime empty array cross formData that come from frontend be [""] an array with empty string not []
+// so you have to handle it by filter value or transform value from DTO file
+//  -updateProductDto.images = updateProductDto.images.filter((image) => image);   remove empty value before save
+//  -@Transform(({ value }) => {
+//   if (Array.isArray(value)) {
+//    return value.filter((item) => item && item.trim().length > 0);
+//  }
+//  return value;
+// })
+//images?: string[];
 // uploadFile(@UploadedFiles() files: { avatar: Express.Multer.File[], images: Express.Multer.File[] }) {
 //   console.log(files);
 // }
