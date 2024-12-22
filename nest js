@@ -382,7 +382,11 @@
 // Version key values **
 // version: '1', // all routes work only with /v1/... until you assign different version to route
 // version: ['1', '2','3'], // all routes work only with [ /v1/... or /v2/... or /v3/... ] until...
-// version: VERSION_NEUTRAL, // no version, the route will not have version prefix => /user if you req => v1/user it will not work
+// version: VERSION_NEUTRAL, // wokring with any version or no version
+@Controller({
+  path: 'webhook-checkout',
+  version: VERSION_NEUTRAL, //  work with any version or no version
+})
 // so if we use defaultVersion: '1' , the route with VERSION_NEUTRAL will run without version prefix
 // assign different version to route**
 // when adding defaultVersion: '1' at app.enableVersioning() all routes will be /v1/...
