@@ -284,10 +284,16 @@
 // at user.dto.ts or user.entity.ts file add @Exclude() decorator to unwanted fields
 // import { Exclude } from 'class-transformer';
 // export class UserEntity {
+//   name:string
+//   email:string
 //   @Exclude()
 //   password: string;
+//   constructor(partial: Partial<UserEntity>) {
+//   Object.assign(this, partial);
+//   }
 // }
 // know to apply sanitize to response, you need to add ClassSerializerInterceptor from @nestjs/common at controller or before the route
+// and pass data to new UserEntity(data) the result willl be sanatized data
 // for global apply, add it at app.module inside providers array
 // @Module({
 // ...
@@ -321,6 +327,9 @@
 //   get fullName(): string {
 //   return `${this.firstName} ${this.lastName}`;
 //   }
+//   constructor(partial: Partial<UserEntity>) {
+//   Object.assign(this, partial);
+//   }
 // }
 // know the response will be {id:1,firstName:'John',lastName:'Doe',fullName:'John Doe'} note: fullName is not exist at UserEntity
 // if use need remove keys ex: start with "_" from the response you can use @SerializeOptions decorator before the route
@@ -329,12 +338,12 @@
 //  })
 // @Get()
 // findOne(): UserEntity {
-//   return {
+//   return new UserEntity({
 //     id: 1,
 //     firstName: 'John',
 //     lastName: 'Doe',
 //     _id: '23432453ff',
-//   };
+//   });
 // }
 // know the response will be {id:1,firstName:'John',lastName:'Doe'} note: _id is removed
 // For ensures that all responses are transformed into instances of the UserEntity class, you can use the @SerializeOptions decorator
