@@ -199,12 +199,14 @@
 
 // ****Caching****
 // npm install @nestjs/cache-manager cache-manager
+// yarn add @nestjs/cache-manager@2.1.0 cache-manager@4.1.0 => compatible version
 // apply CacheModule  at app.module
 // @Module({
 //   imports: [CacheModule.register({
 //    isGlobal: true, // make module global, so can use cacheManager in any module without import CacheModule
 //    ttl: 5, // 5s for cache time
 //    max: 10, // maximum number of items in cache
+//    store: 'memory',
 // })],
 //   controllers: [AppController],
 // })
