@@ -348,6 +348,7 @@ export default function Login ({navigation}){
   export apk file :
   
    - expo login
+   - npm install -g eas-cli
    - eas build -p android --profile preview
   
 
