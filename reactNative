@@ -468,7 +468,12 @@ return (<Text>  hello app  </Text>)
 
 
 /***********************************************************
-optimizing assets file for building (decrease some assets size)
+optimizing assets file and size for building (decrease some assets size)
 npm i -g sharp-cli
 npx expo-optimize
+npx depcheck => check unused pkgs
+const SomeComponent = React.lazy(() => import('./SomeComponent')); dont forgot Suspense
+npx expo doctor
+expo upgrade
+
 
